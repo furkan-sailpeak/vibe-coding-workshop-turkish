@@ -1,8 +1,14 @@
-# Workshop Prompt App
+# Vibes 101 🇹🇷 🇬🇧
+
+*[🇹🇷 Türkçe versiyon, İngilizce kısımdan hemen sonra yer almaktadır. (Aşağı kaydırın / Scroll down)]*
+
+---
+
+## 🇬🇧 English
 
 This is a "Vibe Coding" prompt generator web application. It takes user preferences and generates an optimized prompt that can be pasted into an AI coding tool (like Cursor, Claude, or ChatGPT) to automatically generate code for various basic apps.
 
-## File Structure
+### File Structure
 
 ```text
 workshop-prompt-app/
@@ -22,7 +28,8 @@ workshop-prompt-app/
 ├── README.md              <-- Instructions
 └── server.js              <-- Your small express server for proxying
 ```
-## Running Locally
+
+### Running Locally
 
 1. Setup Node.js (v18+)
 2. Install dependencies:
@@ -39,7 +46,7 @@ workshop-prompt-app/
    ```
 5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Deployment on Railway / GitHub
+### Deployment on Railway / GitHub
 
 This app is fully prepared for continuous deployment to Railway.
 
@@ -52,3 +59,69 @@ This app is fully prepared for continuous deployment to Railway.
    - Choose "Deploy from GitHub repo" and select this repository.
    - **Environment Variables**: Make sure to add `GROQ_API_KEY` in the Variables section of the Railway deployment configuration.
    - Railway will automatically detect the `package.json`, install dependencies, and run `npm start` to serve the application on the provided URL.
+
+---
+
+## 🇹🇷 Türkçe
+
+Bu, "Vibe Coding" tekniğiyle kod yazma deneyimine başlamak isteyenler için hazırlanmış bir prompt oluşturucu web uygulamasıdır. Kullanıcıların tercihlerini alır ve AI (yapay zeka) kodlama araçlarına (Cursor, Claude veya ChatGPT gibi) doğrudan yapıştırılarak çeşitli temel uygulamalar oluşturmaya yarayacak optimize edilmiş bir prompt üretir.
+
+### Yeni Başlayanlar İçin Notlar 💡
+
+1. **Önce Soruları Yanıtlayın:** Bu uygulamada sizden geliştirilecek uygulamanın amacını (portfolyo, blog vs.), hedef kilitlenizi ve görsel seçimlerinizi yapmanız istenecektir.
+2. **"Prompt" Nedir?** "Prompt", bir yapay zekaya sizin ne istediğinizi çok spesifik kurallara göre anlatan komut metnidir. Buradan oluşturduğunuz komutu kopyalayacaksınız.
+3. **Claude / ChatGPT'ye Yapıştırma Zamanı:** Kopyaladığınız bu metni ChatGPT (veya Claude.ai, Gemini) sohbet kutusuna yapıştırdığınızda AI size adım adım sorular soracak ve tüm dosyaları (`index.html`, `styles.css` vb.) sizin için yazacaktır!
+4. **`.env` Dosyası Meselesi:** Uygulamanın çalışması için "Groq API Key" diye bir şifreye ihtiyacı var. Bu şifreyi bilgisayarınızdaki `.env` dosyasına (`GROQ_API_KEY=sizin_şifreniz` şeklinde) koymalısınız. API anahtarınız GitHub'a YÜKLENMEMELİDİR (bu yüzden `.gitignore` dosyasında engellenmiştir).
+
+### Dosya Yapısı
+
+```text
+workshop-prompt-app/
+├── public/                <-- Tüm ön yüz (kullanıcının gördüğü) kodlarınız buradadır
+│   ├── app.js
+│   ├── config.js
+│   ├── index.html
+│   ├── styles.css
+│   └── vibes101-logo.svg
+├── node_modules/          <-- İndirilen ek yazılım paketleri (npm ile)
+├── .env                   <-- Yerel gizli anahtarlarınız (bunu siz oluşturacaksınız)
+├── .gitignore             <-- Git'e (GitHub'a) yüklenmesini İSTEMEDİĞİMİZ dosyalar
+├── package-lock.json      <-- İnternetten inen paketlerin tam sürümleri
+├── package.json           <-- Sunucu konfigürasyonunuz ve uygulamanızın adı
+├── Dockerfile             <-- İnternete (Railway'e) yüklerken bilgisayar ortamını hazırlar
+├── railway.json           <-- Railway yayına alma ayarları
+├── README.md              <-- Şuan okuduğunuz belge
+└── server.js              <-- Arka plan sunucunuz (Groq şifrenizi saklamak için)
+```
+
+### Kendi Bilgisayarınızda Çalıştırma
+
+1. Node.js yüklü olmalıdır (v18 ve üzeri)
+2. Uygulamanın çalışması için gereken paketleri yükleyin:
+   ```bash
+   npm install
+   ```
+3. Proje klasöründe sağ tıklayıp yeni bir dosya oluşturun ve adını `.env` koyun. İçine Groq API anahtarınızı (şifrenizi) girin:
+   ```env
+   GROQ_API_KEY=sizin_api_anahtariniz_buraya_gelecek
+   ```
+4. Uygulamanın sunucusunu başlatın:
+   ```bash
+   npm start
+   ```
+5. Tarayıcınızda [http://localhost:3000](http://localhost:3000) adresine girin.
+
+### Railway ile İnternette Yayına Alma
+
+Bu uygulama sorunsuz bir şekilde bir platform olan Railway üzerinden canlıya alınmak (deploy edilmek) için yapılandırılmıştır.
+
+1. **Kodunu GitHub'a Gönder (Push):**
+   - Kodlarını commit et (Dikkat: `.env` dosyasının GitHub'a gitmediğinden emin ol, zaten `.gitignore` buna engel olacaktır).
+   - GitHub adresine (repo'ya) kodları `git push` ile yolla.
+
+2. **Railway'de Ayağa Kalkma:**
+   - Railway platformunda yeni bir proje oluştur.
+   - "Deploy from GitHub repo" (GitHub deposundan yayınla) seçeneğini seç.
+   - **Environment Variables (Çevresel Değişkenler):** Uygulama yüklendikten sonra Railway ayarlarından `GROQ_API_KEY` isimli değişkeni ve anahtarını elle eklemeyi unutma!
+   - Railway otomatik olarak dosyalarınızı okuyacak ve internete bağlayıp herkese açık bir URL oluşturacaktır.
+
