@@ -64,64 +64,63 @@ This app is fully prepared for continuous deployment to Railway.
 
 ## 🇹🇷 Türkçe
 
-Bu, "Vibe Coding" tekniğiyle kod yazma deneyimine başlamak isteyenler için hazırlanmış bir prompt oluşturucu web uygulamasıdır. Kullanıcıların tercihlerini alır ve AI (yapay zeka) kodlama araçlarına (Cursor, Claude veya ChatGPT gibi) doğrudan yapıştırılarak çeşitli temel uygulamalar oluşturmaya yarayacak optimize edilmiş bir prompt üretir.
+Bu proje, kod yazmayı çok bilmeden "Vibe Coding" mantığıyla uygulama geliştirmek isteyenler için ufak bir araç. Yaptığı şey aslında basit: Sizden birkaç detay alıp Cursor, Claude veya ChatGPT gibi yapay zeka kodlama asistanlarına verebileceğiniz hazır, tertemiz bir komut (prompt) üretiyor.
 
 ### Yeni Başlayanlar İçin Notlar 💡
 
-1. **Önce Soruları Yanıtlayın:** Bu uygulamada sizden geliştirilecek uygulamanın amacını (portfolyo, blog vs.), hedef kilitlenizi ve görsel seçimlerinizi yapmanız istenecektir.
-2. **"Prompt" Nedir?** "Prompt", bir yapay zekaya sizin ne istediğinizi çok spesifik kurallara göre anlatan komut metnidir. Buradan oluşturduğunuz komutu kopyalayacaksınız.
-3. **Claude / ChatGPT'ye Yapıştırma Zamanı:** Kopyaladığınız bu metni ChatGPT (veya Claude.ai, Gemini) sohbet kutusuna yapıştırdığınızda AI size adım adım sorular soracak ve tüm dosyaları (`index.html`, `styles.css` vb.) sizin için yazacaktır!
-4. **`.env` Dosyası Meselesi:** Uygulamanın çalışması için "Groq API Key" diye bir şifreye ihtiyacı var. Bu şifreyi bilgisayarınızdaki `.env` dosyasına (`GROQ_API_KEY=sizin_şifreniz` şeklinde) koymalısınız. API anahtarınız GitHub'a YÜKLENMEMELİDİR (bu yüzden `.gitignore` dosyasında engellenmiştir).
+1. **Önce Seçimlerinizi Yapın:** Sizden uygulamanızın ne işe yarayacağını (blog mu, portfolyo mu?), kime hitap edeceğini ve nasıl görünmesini istediğinizi soran ufak bir anketimiz var.
+2. **"Prompt" da ne?** Kısaca, yapay zekaya "Bana tam olarak şunu şunu şu kurallarla yap" dediğimiz sihirli metin. Zaten uygulamamız bu metni sizin için hazırlıyor, size sadece kopyalaması kalıyor.
+3. **Nasıl Kullanacağız:** Kopyaladığınız o uzun metni alın, ChatGPT'ye (veya Claude'a) yapıştırıverin. Yapay zeka size adım adım sorular soracak ve tüm dosyalarınızı (`index.html`, `styles.css` gibi) tek tek dökecektir!
+4. **Şu Gizli Dosya (.env) Olayı:** Arkada Groq denen bir yapay zeka servisini kullanıyoruz. Çalışması için ona bir anahtar (key) lazım. Projenin içine `.env` diye bir dosya açıp, içine `GROQ_API_KEY=sizin_şifreniz` şablonuyla anahtarınızı yapıştırmanız şart. GitHub'a yanlışlıkla atarım diye de korkmayın, `.gitignore` dosyası bunu engelliyor.
 
 ### Dosya Yapısı
 
 ```text
 workshop-prompt-app/
-├── public/                <-- Tüm ön yüz (kullanıcının gördüğü) kodlarınız buradadır
+├── public/                <-- Ön yüz (sitede görünen her şey) burada
 │   ├── app.js
 │   ├── config.js
 │   ├── index.html
 │   ├── styles.css
 │   └── vibes101-logo.svg
-├── node_modules/          <-- İndirilen ek yazılım paketleri (npm ile)
-├── .env                   <-- Yerel gizli anahtarlarınız (bunu siz oluşturacaksınız)
-├── .gitignore             <-- Git'e (GitHub'a) yüklenmesini İSTEMEDİĞİMİZ dosyalar
-├── package-lock.json      <-- İnternetten inen paketlerin tam sürümleri
-├── package.json           <-- Sunucu konfigürasyonunuz ve uygulamanızın adı
-├── Dockerfile             <-- İnternete (Railway'e) yüklerken bilgisayar ortamını hazırlar
-├── railway.json           <-- Railway yayına alma ayarları
-├── README.md              <-- Şuan okuduğunuz belge
-└── server.js              <-- Arka plan sunucunuz (Groq şifrenizi saklamak için)
+├── node_modules/          <-- npm'den inen ıvır zıvır paketler
+├── .env                   <-- Şifrelerinizi saklayacağınız yer (Siz açacaksınız)
+├── .gitignore             <-- GitHub'da istemediğimiz dosyaların listesi
+├── package-lock.json      <-- İnternetten inen paketlerin kimlik bilgileri
+├── package.json           <-- Projemizin adı sanı ve sunucu ayarları
+├── Dockerfile             <-- İnternete (Railway'e) atarken ortamı toplar
+├── railway.json           <-- Railway üstüne ince ayarlarımız
+├── README.md              <-- Şu an okuduğunuz yer
+└── server.js              <-- Arka plan sunucumuz (Şifreyi gizli tutmak için var)
 ```
 
-### Kendi Bilgisayarınızda Çalıştırma
+### Bilgisayarınızda Çalıştırmak İçin
 
-1. Node.js yüklü olmalıdır (v18 ve üzeri)
-2. Uygulamanın çalışması için gereken paketleri yükleyin:
+1. Bilgisayarınızda Node.js kurulu olmalı (v18 falan yeterli).
+2. Gerekli paketleri indirmek için terminale şunu yazın:
    ```bash
    npm install
    ```
-3. Proje klasöründe sağ tıklayıp yeni bir dosya oluşturun ve adını `.env` koyun. İçine Groq API anahtarınızı (şifrenizi) girin:
+3. Proje klasöründe sağ tıklayıp `.env` adında bir dosya oluşturun ve içine Groq API anahtarınızı (şifrenizi) yapıştırın:
    ```env
-   GROQ_API_KEY=sizin_api_anahtariniz_buraya_gelecek
+   GROQ_API_KEY=api_anahtarinizi_buraya_yapistirin
    ```
-4. Uygulamanın sunucusunu başlatın:
+4. Sunucuyu ayaklandırmak için:
    ```bash
    npm start
    ```
-5. Tarayıcınızda [http://localhost:3000](http://localhost:3000) adresine girin.
+5. Tarayıcıyı açın ve [http://localhost:3000](http://localhost:3000) adresine gidin. Her şey hazır!
 
-### Railway ile İnternette Yayına Alma
+### İnternete (Railway'e) Açmak
 
-Bu uygulama sorunsuz bir şekilde bir platform olan Railway üzerinden canlıya alınmak (deploy edilmek) için yapılandırılmıştır.
+Bu projeyi anında Railway gibi bedava platformlarda yayına atabilirsiniz. Altyapı falan her şey kurulu.
 
-1. **Kodunu GitHub'a Gönder (Push):**
-   - Kodlarını commit et (Dikkat: `.env` dosyasının GitHub'a gitmediğinden emin ol, zaten `.gitignore` buna engel olacaktır).
-   - GitHub adresine (repo'ya) kodları `git push` ile yolla.
+1. **Kodları GitHub'a İteleyelim:**
+   - Önce değişiklikleri commitleyin (merak etmeyin `.gitignore` .env dosyasını koruyacak).
+   - Kodları GitHub reponuza push'layın (`git push`).
 
-2. **Railway'de Ayağa Kalkma:**
-   - Railway platformunda yeni bir proje oluştur.
-   - "Deploy from GitHub repo" (GitHub deposundan yayınla) seçeneğini seç.
-   - **Environment Variables (Çevresel Değişkenler):** Uygulama yüklendikten sonra Railway ayarlarından `GROQ_API_KEY` isimli değişkeni ve anahtarını elle eklemeyi unutma!
-   - Railway otomatik olarak dosyalarınızı okuyacak ve internete bağlayıp herkese açık bir URL oluşturacaktır.
-
+2. **Railway'den Yayına Alalım:**
+   - Railway'e girip yeni proje açın.
+   - "Deploy from GitHub repo" seçip sizin şu anki repoyu bağlayın.
+   - **Environment Variables (Ortam Değişkenleri):** Proje ayarlarından `GROQ_API_KEY` isimli değişkeni kendiniz elinizle eklemelisiniz. Yoksa çalışmaz!
+   - Kalanını Railway kendi halledip her şeyi ayaklandırıyor ve size tıklayıp girebileceğiniz bir link veriyor. Kolay gelsin!
