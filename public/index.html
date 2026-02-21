@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,11 +8,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
   <div class="topbar">
     <img src="vibes101-logo.svg" alt="Vibes 101" class="logo" />
     <div class="topbar-right">
-      <div class="progress"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
       <span class="step-indicator" id="stepIndicator"></span>
       <button id="langToggle">EN</button>
     </div>
@@ -24,7 +28,8 @@
       <div class="step-content center">
         <p class="hero-tag" data-i18n="heroTag">Vibe Coding Workshop</p>
         <h1 data-i18n="welcomeTitle">Vibe coding ile uygulamanı oluştur</h1>
-        <p class="subtitle" data-i18n="welcomeSub">Birkaç soruya cevap ver, sana AI kodlama aracına yapıştırabileceğin hazır bir prompt oluşturalım.</p>
+        <p class="subtitle" data-i18n="welcomeSub">Birkaç soruya cevap ver, sana AI kodlama aracına yapıştırabileceğin
+          hazır bir prompt oluşturalım.</p>
         <button class="btn-next" data-next="1" data-i18n="start">Başlayalım</button>
 
         <div class="examples-section">
@@ -45,17 +50,20 @@
               <span class="example-label" data-i18n="ex3Label">Yapılacaklar Uygulaması</span>
               <span class="example-desc" data-i18n="ex3Desc">Görev takip eden basit bir uygulama</span>
             </div>
-            <div class="example-card" data-template="restaurant" data-features="landing,responsive" data-style="Dark Luxury">
+            <div class="example-card" data-template="restaurant" data-features="landing,responsive"
+              data-style="Dark Luxury">
               <span class="example-icon ei-menu"></span>
               <span class="example-label" data-i18n="ex4Label">Restoran Menüsü</span>
               <span class="example-desc" data-i18n="ex4Desc">Online menü ve sipariş sayfası</span>
             </div>
-            <div class="example-card" data-template="dashboard" data-features="database,api,responsive" data-style="Modern">
+            <div class="example-card" data-template="dashboard" data-features="database,api,responsive"
+              data-style="Modern">
               <span class="example-icon ei-chart"></span>
               <span class="example-label" data-i18n="ex5Label">Dashboard</span>
               <span class="example-desc" data-i18n="ex5Desc">Verileri gösteren bir kontrol paneli</span>
             </div>
-            <div class="example-card" data-template="blog" data-features="landing,database,responsive" data-style="Pastel">
+            <div class="example-card" data-template="blog" data-features="landing,database,responsive"
+              data-style="Pastel">
               <span class="example-icon ei-pen"></span>
               <span class="example-label" data-i18n="ex6Label">Blog Sayfası</span>
               <span class="example-desc" data-i18n="ex6Desc">Yazılarını paylaşabileceğin bir blog</span>
@@ -68,7 +76,8 @@
           <div class="footer-top">
             <div class="footer-brand">
               <img src="vibes101-logo.svg" alt="Vibes 101" class="footer-logo" />
-              <p class="footer-desc" data-i18n="footerDesc">Yeni başlayanlar için pratik vibe kodlamaya giriş serisinin bir parçasıdır.</p>
+              <p class="footer-desc" data-i18n="footerDesc">Yeni başlayanlar için pratik vibe kodlamaya giriş serisinin
+                bir parçasıdır.</p>
             </div>
             <div class="footer-links">
               <button class="footer-link" id="forumBtn" data-i18n="forumBtn">Forum</button>
@@ -76,8 +85,8 @@
             </div>
           </div>
           <div class="footer-bottom">
-            <p class="footer-series" data-i18n="aboutSeries">YouTube Serisi: Yeni Başlayanlar İçin Pratik Vibe Kodlamaya Giriş (Türkçe)</p>
-            <p class="footer-made" data-i18n="aboutMade">Furkan Demir tarafından yapılmıştır.</p>
+            <p class="footer-series" data-i18n="aboutSeries">YouTube Serisi: Yeni Başlayanlar İçin Pratik Vibe Kodlamaya
+              Giriş (Türkçe)</p>
           </div>
         </footer>
       </div>
@@ -88,10 +97,12 @@
       <div class="step-content">
         <span class="step-num">1/4</span>
         <h2 data-i18n="ideaLabel">Describe your app idea</h2>
-        <textarea id="idea" data-i18n-ph="ideaPlaceholder" placeholder="e.g. A portfolio site for my photography" rows="3"></textarea>
+        <textarea id="idea" data-i18n-ph="ideaPlaceholder" placeholder="e.g. A portfolio site for my photography"
+          rows="3"></textarea>
 
         <label data-i18n="audienceLabel" style="margin-top:18px">Target audience (optional)</label>
-        <input type="text" id="audience" data-i18n-ph="audiencePlaceholder" placeholder="e.g. students, small business owners..." class="text-input" />
+        <input type="text" id="audience" data-i18n-ph="audiencePlaceholder"
+          placeholder="e.g. students, small business owners..." class="text-input" />
 
         <label data-i18n="complexityLabel" style="margin-top:18px">Complexity level</label>
         <div class="choice-row" data-name="complexity">
@@ -155,7 +166,8 @@
         <label data-i18n="customFeatLabel" style="margin-top:18px">Extra features</label>
         <div class="chips-input-wrap">
           <div class="chips-list" id="chipsList"></div>
-          <input type="text" id="chipsInput" data-i18n-ph="customFeatPlaceholder" placeholder="Type and press Enter..." class="chips-input" />
+          <input type="text" id="chipsInput" data-i18n-ph="customFeatPlaceholder" placeholder="Type and press Enter..."
+            class="chips-input" />
         </div>
 
         <div class="nav-row">
@@ -209,7 +221,8 @@
           </button>
         </div>
         <label data-i18n="visualDetailsLabel" style="margin-top:20px">Visual details (optional)</label>
-        <textarea id="visualDetails" data-i18n-ph="visualDetailsPlaceholder" placeholder="e.g. dark blue tones, rounded corners, large hero image..." rows="2"></textarea>
+        <textarea id="visualDetails" data-i18n-ph="visualDetailsPlaceholder"
+          placeholder="e.g. dark blue tones, rounded corners, large hero image..." rows="2"></textarea>
         <div class="nav-row">
           <button class="btn-back" data-prev="2" data-i18n="back">Back</button>
           <button class="btn-next" id="generateBtn" data-i18n="generateBtn">Prompt Oluştur</button>
@@ -229,12 +242,14 @@
           <div class="spinner"></div>
           <span data-i18n="generating">Generating with AI...</span>
         </div>
-        <p class="output-hint hidden" id="outputHint" data-i18n="outputHint">Promptu düzenleyebilirsin. Değişikliklerin kopyalamaya yansır.</p>
+        <p class="output-hint hidden" id="outputHint" data-i18n="outputHint">Promptu düzenleyebilirsin. Değişikliklerin
+          kopyalamaya yansır.</p>
         <textarea id="output" class="output-area hidden" rows="12"></textarea>
         <div class="output-actions hidden" id="outputActions">
           <button class="btn-back" data-prev="3" data-i18n="back">Back</button>
           <div class="output-actions-right">
-            <button class="btn-icon" id="regenerateBtn" data-i18n-title="regenerateTitle" title="Yeniden oluştur">↻</button>
+            <button class="btn-icon" id="regenerateBtn" data-i18n-title="regenerateTitle"
+              title="Yeniden oluştur">↻</button>
             <button class="btn-icon" id="exportBtn" data-i18n-title="exportTitle" title="TXT olarak indir">↓</button>
             <button class="btn-next" id="copyBtn" data-i18n="copyBtn">Copy Prompt</button>
           </div>
@@ -254,21 +269,24 @@
               <span class="instruction-num">2</span>
               <div>
                 <span class="instruction-label" data-i18n="inst2Label">AI aracını aç</span>
-                <span class="instruction-desc" data-i18n="inst2Desc">Claude (claude.ai), Cursor, ChatGPT veya Gemini gibi bir AI kodlama aracını aç.</span>
+                <span class="instruction-desc" data-i18n="inst2Desc">Claude (claude.ai), Cursor, ChatGPT veya Gemini
+                  gibi bir AI kodlama aracını aç.</span>
               </div>
             </div>
             <div class="instruction-step">
               <span class="instruction-num">3</span>
               <div>
                 <span class="instruction-label" data-i18n="inst3Label">Promptu yapıştır ve gönder</span>
-                <span class="instruction-desc" data-i18n="inst3Desc">Kopyaladığın promptu sohbet kutusuna yapıştır ve Enter'a bas. AI senin için kodu yazacak.</span>
+                <span class="instruction-desc" data-i18n="inst3Desc">Kopyaladığın promptu sohbet kutusuna yapıştır ve
+                  Enter'a bas. AI senin için kodu yazacak.</span>
               </div>
             </div>
             <div class="instruction-step">
               <span class="instruction-num">4</span>
               <div>
                 <span class="instruction-label" data-i18n="inst4Label">Dosyaları kaydet ve çalıştır</span>
-                <span class="instruction-desc" data-i18n="inst4Desc">AI'ın ürettiği dosyaları bilgisayarına kaydet. index.html'yi tarayıcıda açarak uygulamanı gör.</span>
+                <span class="instruction-desc" data-i18n="inst4Desc">AI'ın ürettiği dosyaları bilgisayarına kaydet.
+                  index.html'yi tarayıcıda açarak uygulamanı gör.</span>
               </div>
             </div>
           </div>
@@ -283,12 +301,15 @@
     <div class="modal-content">
       <button class="modal-close" id="aboutClose">&times;</button>
       <h2 data-i18n="aboutTitle">Hakkında</h2>
-      <p data-i18n="aboutText1">Vibes 101, yeni başlayanlar için pratik vibe kodlamaya giriş serisinin bir parçasıdır.</p>
-      <p data-i18n="aboutText2">Bu araç, herhangi bir kodlama deneyimine sahip olmadan AI destekli araçlarla uygulama oluşturmayı kolaylaştırmak için tasarlanmıştır.</p>
-      <p data-i18n="aboutText3">Birkaç basit soruya cevap vererek, AI kodlama aracınıza (Claude, Cursor, ChatGPT, Gemini vb.) yapıştırabileceğiniz optimize edilmiş bir prompt alırsınız.</p>
+      <p data-i18n="aboutText1">Vibes 101, yeni başlayanlar için pratik vibe kodlamaya giriş serisinin bir parçasıdır.
+      </p>
+      <p data-i18n="aboutText2">Bu araç, herhangi bir kodlama deneyimine sahip olmadan AI destekli araçlarla uygulama
+        oluşturmayı kolaylaştırmak için tasarlanmıştır.</p>
+      <p data-i18n="aboutText3">Birkaç basit soruya cevap vererek, AI kodlama aracınıza (Claude, Cursor, ChatGPT, Gemini
+        vb.) yapıştırabileceğiniz optimize edilmiş bir prompt alırsınız.</p>
       <div class="about-divider"></div>
-      <p class="about-series" data-i18n="aboutSeries">YouTube Serisi: Yeni Başlayanlar İçin Pratik Vibe Kodlamaya Giriş (Türkçe)</p>
-      <p class="about-made" data-i18n="aboutMade">Furkan Demir tarafından yapılmıştır.</p>
+      <p class="about-series" data-i18n="aboutSeries">YouTube Serisi: Yeni Başlayanlar İçin Pratik Vibe Kodlamaya Giriş
+        (Türkçe)</p>
     </div>
   </div>
 
@@ -316,7 +337,8 @@
       <div class="forum-compose">
         <input type="text" id="forumAuthor" data-i18n-ph="forumAuthorPh" placeholder="Adın" class="forum-input" />
         <input type="text" id="forumPostTitle" data-i18n-ph="forumTitlePh" placeholder="Başlık" class="forum-input" />
-        <textarea id="forumPostBody" data-i18n-ph="forumBodyPh" placeholder="Mesajını yaz..." class="forum-textarea" rows="3"></textarea>
+        <textarea id="forumPostBody" data-i18n-ph="forumBodyPh" placeholder="Mesajını yaz..." class="forum-textarea"
+          rows="3"></textarea>
         <button class="btn-next forum-submit" id="forumSubmit" data-i18n="forumSubmit">Gönder</button>
       </div>
       <div class="forum-posts" id="forumPosts">
@@ -331,4 +353,5 @@
   <script src="config.js"></script>
   <script src="app.js"></script>
 </body>
+
 </html>
