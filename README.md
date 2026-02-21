@@ -1,4 +1,8 @@
-# Vibes 101 🇹🇷 🇬🇧
+# Vibes 101
+
+<p align="center">
+  <img src="public/vibes101-logo.svg" alt="Vibes 101 Logo" width="300" />
+</p>
 
 *[🇹🇷 Türkçe versiyon, İngilizce kısımdan hemen sonra yer almaktadır. (Aşağı kaydırın / Scroll down)]*
 
@@ -64,14 +68,14 @@ This app is fully prepared for continuous deployment to Railway.
 
 ## 🇹🇷 Türkçe
 
-Bu proje, kod yazmayı çok bilmeden "Vibe Coding" mantığıyla uygulama geliştirmek isteyenler için ufak bir araç. Yaptığı şey aslında basit: Sizden birkaç detay alıp Cursor, Claude veya ChatGPT gibi yapay zeka kodlama asistanlarına verebileceğiniz hazır, tertemiz bir komut (prompt) üretiyor.
+Bu proje, kod yazmayı hiç bilmeyenler için "Vibe Kodlama" mantığıyla uygulama geliştirmek isteyenler için ufak bir araç. Yaptığı şey aslında basit: Sizden uygulama fikrinizi alıp Cursor, Claude veya ChatGPT gibi yapay zeka kodlama asistanlarına verebileceğiniz hazır, tertemiz bir komut (prompt) üretiyor. Merak etmeyin, fikirlerinizi kaydetmiyoruz :)
 
 ### Yeni Başlayanlar İçin Notlar 💡
 
-1. **Önce Seçimlerinizi Yapın:** Sizden uygulamanızın ne işe yarayacağını (blog mu, portfolyo mu?), kime hitap edeceğini ve nasıl görünmesini istediğinizi soran ufak bir anketimiz var.
-2. **"Prompt" da ne?** Kısaca, yapay zekaya "Bana tam olarak şunu şunu şu kurallarla yap" dediğimiz sihirli metin. Zaten uygulamamız bu metni sizin için hazırlıyor, size sadece kopyalaması kalıyor.
-3. **Nasıl Kullanacağız:** Kopyaladığınız o uzun metni alın, ChatGPT'ye (veya Claude'a) yapıştırıverin. Yapay zeka size adım adım sorular soracak ve tüm dosyalarınızı (`index.html`, `styles.css` gibi) tek tek dökecektir!
-4. **Şu Gizli Dosya (.env) Olayı:** Arkada Groq denen bir yapay zeka servisini kullanıyoruz. Çalışması için ona bir anahtar (key) lazım. Projenin içine `.env` diye bir dosya açıp, içine `GROQ_API_KEY=sizin_şifreniz` şablonuyla anahtarınızı yapıştırmanız şart. GitHub'a yanlışlıkla atarım diye de korkmayın, `.gitignore` dosyası bunu engelliyor.
+1. **Önce Seçimlerinizi Yapın:** Sizden uygulamanızın ne işe yarayacağını (blog mu, ürün tanıtım sitesi mi, portfolyo mu?), kime hitap edeceğini ve nasıl görünmesini istediğinizi soran ufak bir anketimiz var.
+2. **"Prompt" da ne?** Kısaca, yapay zekaya "Bana tam olarak şunu şunu şu kurallarla yap" dediğimiz metin. Zaten uygulamamız bu metni sizin için hazırlıyor, size sadece kopyalaması kalıyor.
+3. **Nasıl Kullanacağız:** Kopyaladığınız metni alın, ChatGPT'ye (veya Claude'a) yapıştırıverin. Yapay zeka size adım adım sorular soracak ve tüm dosyalarınızı (`index.html`, `styles.css` gibi) tek tek oluşturacak.
+4. **.env Dosyası Nasıl Kullanılır:** Arkada Groq denen bir yapay zeka servisini kullanıyoruz. Çalışması için ona bir anahtar (key) lazım. Projenin içine `.env` diye bir dosya açıp, içine `GROQ_API_KEY=sizin_şifreniz` şablonuyla anahtarınızı yapıştırmanız şart. GitHub'a yanlışlıkla atarım diye de korkmayın, `.gitignore` dosyası bunu engelliyor.
 
 ### Dosya Yapısı
 
@@ -96,7 +100,7 @@ workshop-prompt-app/
 
 ### Bilgisayarınızda Çalıştırmak İçin
 
-1. Bilgisayarınızda Node.js kurulu olmalı (v18 falan yeterli).
+1. Bilgisayarınızda Node.js kurulu olmalı (v18 yeterli).
 2. Gerekli paketleri indirmek için terminale şunu yazın:
    ```bash
    npm install
@@ -105,7 +109,7 @@ workshop-prompt-app/
    ```env
    GROQ_API_KEY=api_anahtarinizi_buraya_yapistirin
    ```
-4. Sunucuyu ayaklandırmak için:
+4. Sunucuyu başlatmak için:
    ```bash
    npm start
    ```
@@ -113,7 +117,7 @@ workshop-prompt-app/
 
 ### İnternete (Railway'e) Açmak
 
-Bu projeyi anında Railway gibi bedava platformlarda yayına atabilirsiniz. Altyapı falan her şey kurulu.
+Bu projeyi anında Railway gibi bedava platformlarda yayına atabilirsiniz.
 
 1. **Kodları GitHub'a İteleyelim:**
    - Önce değişiklikleri commitleyin (merak etmeyin `.gitignore` .env dosyasını koruyacak).
