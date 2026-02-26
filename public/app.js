@@ -413,6 +413,37 @@ async function generateWithAI() {
   }
 }
 
+// ── Detailed style descriptions (technical, based on the visual previews) ──
+const styleDescriptions = {
+  en: {
+    "Minimal": "Minimal style: clean white backgrounds, monochrome black-and-white palette, generous whitespace, thin horizontal lines as dividers, no decorative elements, sharp and simple typography, flat design with no shadows or gradients, content-first layout with maximum breathing room",
+    "Modern": "Modern style: purple-to-violet gradient backgrounds (e.g. #667eea → #764ba2), frosted glass card elements with backdrop-filter blur and semi-transparent white overlays (rgba 255,255,255,0.2), rounded corners (12px+), soft shadows, clean sans-serif typography, layered depth with translucent panels on colorful gradient backdrops",
+    "Pixel Art": "Pixel Art style: dark navy background (#1a1a2e), retro 8-bit aesthetic with sharp pixelated edges, bold accent colors — hot pink (#e94560) and deep blue (#0f3460), checkerboard/grid patterns, blocky UI elements with hard edges (no border-radius), monospace or pixel-style typography, nostalgic retro gaming vibe",
+    "Brutalist": "Brutalist style: off-white/cream background (#f5f0e8), heavy black borders (3-4px), raw unpolished aesthetic, bold oversized monospace typography (Courier New or similar), stark black-on-cream contrast, no rounded corners, no gradients, no shadows, deliberately rough and anti-design, thick divider lines, exposed grid structure",
+    "Glassmorphism": "Glassmorphism style: deep dark gradient background (#0f0c29 → #302b63 → #24243e), frosted glass panels with very subtle white tint (rgba 255,255,255,0.1), thin semi-transparent white borders (1px solid rgba 255,255,255,0.2), strong backdrop-filter blur (6-10px), rounded corners (10px+), layered translucent cards floating on dark backgrounds, subtle light refraction effect",
+    "Retro Neon": "Retro Neon style: very dark almost-black background (#0a0015), neon magenta/pink (#ff00ff) for borders and key elements with glowing box-shadow effects, cyan (#00ffff) accent lines with glow, synthwave/cyberpunk aesthetic, thin neon-bordered containers, glowing text effects, dark-on-dark with vivid neon highlights, 80s retro-futuristic vibe",
+    "Pastel": "Pastel style: soft gradient backgrounds blending pink (#fbc2eb) to light blue (#a6c1ee), rounded shapes and circular elements, semi-transparent white overlays (rgba 255,255,255,0.5), gentle and airy color palette with no harsh contrasts, soft shadows, large border-radius on all elements, friendly and approachable aesthetic, light and whimsical feel",
+    "Dark Luxury": "Dark Luxury style: near-black background (#0c0c0c), gold/champagne accent color (#c9a84c) for borders and highlights, thin elegant lines (1-1.5px), subtle gradient gold dividers that fade to transparent on edges, minimal decoration, premium and sophisticated feel, high contrast between dark background and gold accents, serif or thin elegant typography, jewelry-brand aesthetic",
+    "Gradient Mesh": "Gradient Mesh style: vibrant multi-color animated gradient background blending pink (#f093fb), coral-red (#f5576c), bright blue (#4facfe), and cyan (#00f2fe), continuously shifting and flowing color transitions, bold and dynamic visual energy, vivid saturated colors, modern and eye-catching, content overlaid on the colorful mesh with white or semi-transparent containers for readability"
+  },
+  tr: {
+    "Minimal": "Minimal stil: temiz beyaz arka planlar, siyah-beyaz monokrom palet, bol beyaz boşluk, ince yatay çizgi ayırıcılar, dekoratif öğe yok, keskin ve sade tipografi, gölge veya gradyan yok düz tasarım, içerik öncelikli yerleşim ile maksimum boşluk",
+    "Modern": "Modern stil: mordan-violeye gradyan arka planlar (örn. #667eea → #764ba2), backdrop-filter blur ile buzlu cam kart öğeleri ve yarı saydam beyaz kaplamalar (rgba 255,255,255,0.2), yuvarlatılmış köşeler (12px+), yumuşak gölgeler, temiz sans-serif tipografi, renkli gradyan arka planlar üzerinde yarı saydam katmanlı derinlik",
+    "Pixel Art": "Pixel Art stil: koyu lacivert arka plan (#1a1a2e), retro 8-bit estetik ve keskin piksel kenarlar, cesur vurgu renkleri — sıcak pembe (#e94560) ve koyu mavi (#0f3460), dama/grid desenleri, sert kenarlı blok UI öğeleri (border-radius yok), monospace veya piksel tarzı tipografi, nostaljik retro oyun havası",
+    "Brutalist": "Brutalist stil: krem/kirli beyaz arka plan (#f5f0e8), kalın siyah kenarlıklar (3-4px), ham cilasız estetik, cesur büyük boyutlu monospace tipografi (Courier New veya benzeri), keskin siyah-krem kontrast, yuvarlatılmış köşe yok, gradyan yok, gölge yok, kasıtlı olarak kaba ve anti-tasarım, kalın ayırıcı çizgiler",
+    "Glassmorphism": "Glassmorphism stil: derin koyu gradyan arka plan (#0f0c29 → #302b63 → #24243e), çok hafif beyaz tonlu buzlu cam paneller (rgba 255,255,255,0.1), ince yarı saydam beyaz kenarlıklar (1px solid rgba 255,255,255,0.2), güçlü backdrop-filter blur (6-10px), yuvarlatılmış köşeler (10px+), koyu arka planlar üzerinde süzülen yarı saydam kartlar",
+    "Retro Neon": "Retro Neon stil: çok koyu neredeyse siyah arka plan (#0a0015), kenarlıklar ve ana öğeler için parlayan box-shadow efektli neon magenta/pembe (#ff00ff), parlayan cyan (#00ffff) vurgu çizgileri, synthwave/cyberpunk estetik, ince neon kenarlıklı konteynerler, parlayan metin efektleri, canlı neon vurgularla koyu-üstüne-koyu, 80'ler retro-fütüristik hava",
+    "Pastel": "Pastel stil: pembe (#fbc2eb) ve açık maviye (#a6c1ee) karışan yumuşak gradyan arka planlar, yuvarlatılmış şekiller ve dairesel öğeler, yarı saydam beyaz kaplamalar (rgba 255,255,255,0.5), sert kontrastı olmayan nazik ve havadar renk paleti, yumuşak gölgeler, tüm öğelerde büyük border-radius, samimi ve yaklaşılabilir estetik",
+    "Dark Luxury": "Dark Luxury stil: neredeyse siyah arka plan (#0c0c0c), kenarlıklar ve vurgular için altın/şampanya vurgu rengi (#c9a84c), ince zarif çizgiler (1-1.5px), kenarlara doğru saydamlaşan altın gradyan ayırıcılar, minimal dekorasyon, premium ve sofistike his, koyu arka plan ile altın vurgular arasında yüksek kontrast, serif veya ince zarif tipografi",
+    "Gradient Mesh": "Gradient Mesh stil: pembe (#f093fb), mercan kırmızı (#f5576c), parlak mavi (#4facfe) ve cyan (#00f2fe) karışan canlı çok renkli animasyonlu gradyan arka plan, sürekli değişen ve akan renk geçişleri, cesur ve dinamik görsel enerji, canlı doygun renkler, okunabilirlik için renkli mesh üzerinde beyaz veya yarı saydam konteynerlerle içerik"
+  }
+};
+
+function getStyleDescription(style, lang) {
+  const l = lang === "tr" ? "tr" : "en";
+  return styleDescriptions[l][style] || style;
+}
+
 async function callGroq(a) {
   const isSimple = a.landing === "yes" && a.accounts === "no" && a.payments === "no" && a.database === "no" && a.api === "no";
   const extras = [];
@@ -537,7 +568,7 @@ Proje bilgileri:
 - Veritabanı: ${a.database === "yes" ? "evet" : "hayır"}
 - API bağlantısı: ${a.api === "yes" ? "evet" : "hayır"}
 - Mobil uyumlu: ${a.responsive === "yes" ? "evet" : "hayır"}
-- Görsel stil: ${a.style}${a.visualDetails ? "\n- Görsel detaylar: " + a.visualDetails : ""}${a.audience ? "\n- Hedef kitle: " + a.audience : ""}
+- Görsel stil: ${getStyleDescription(a.style, "tr")}${a.visualDetails ? "\n- Görsel detaylar: " + a.visualDetails : ""}${a.audience ? "\n- Hedef kitle: " + a.audience : ""}
 ${a.customFeatures.length ? "- Ekstra: " + a.customFeatures.join(", ") : ""}${extras.length ? "\n- Ek gereksinimler: " + extras.join(", ") : ""}
 
 Oluşturacağın prompt XML etiketleri kullansın (<role>...</role>, <task>...</task>, <context>...</context>, <constraints>...</constraints>, <behavior>...</behavior>, <phases>...</phases>, <output_format>...</output_format>).
@@ -551,7 +582,7 @@ HER etiketi MUTLAKA kapat (açılan her <tag> için </tag> olmalı). HER bölüm
 
 <constraints> bölümü şunları içersin:
 - Çıktı: index.html, styles.css, app.js
-- ${a.style} görsel stili
+- ${getStyleDescription(a.style, "tr")} — bu stili tüm UI öğelerine uygula
 - Framework, npm, Docker KULLANMA
 - Basit HTML + CSS + JS
 - ${!isSimple ? "Backend gerekirse en basit yol (tek dosya server veya ücretsiz servis)" : "Sadece statik dosyalar"}
@@ -585,7 +616,7 @@ Project info:
 - Needs database: ${a.database}
 - Needs API: ${a.api}
 - Mobile responsive: ${a.responsive}
-- Visual style: ${a.style}${a.visualDetails ? "\n- Visual details: " + a.visualDetails : ""}${a.audience ? "\n- Target audience: " + a.audience : ""}
+- Visual style: ${getStyleDescription(a.style, "en")}${a.visualDetails ? "\n- Visual details: " + a.visualDetails : ""}${a.audience ? "\n- Target audience: " + a.audience : ""}
 ${a.customFeatures.length ? "- Extras: " + a.customFeatures.join(", ") : ""}${extras.length ? "\n- Additional needs: " + extras.join(", ") : ""}
 
 The prompt you generate must use XML tags (<role>...</role>, <task>...</task>, <context>...</context>, <constraints>...</constraints>, <behavior>...</behavior>, <phases>...</phases>, <output_format>...</output_format>).
@@ -599,7 +630,7 @@ Phase rules for the <phases> section:
 
 The <constraints> section should include:
 - Output files: index.html, styles.css, app.js
-- ${a.style} visual style
+- ${getStyleDescription(a.style, "en")} — apply this style to all UI elements
 - No frameworks, npm, Docker
 - Simple HTML + CSS + JS only
 - ${!isSimple ? "If backend needed, suggest simplest path (single file server or free service)" : "Static files only"}
@@ -655,13 +686,13 @@ ${simple ? "Basit bir ana sayfa oluştur" : "Basit bir MVP web uygulaması oluş
 </task>
 
 <context>
-${a.audience ? "Hedef kitle: " + a.audience + "\n" : ""}Görsel stil: ${a.style}${a.visualDetails ? "\nGörsel detaylar: " + a.visualDetails : ""}
+${a.audience ? "Hedef kitle: " + a.audience + "\n" : ""}Görsel stil: ${getStyleDescription(a.style, "tr")}${a.visualDetails ? "\nGörsel detaylar: " + a.visualDetails : ""}
 ${extrasArr.length ? "Ek gereksinimler: " + extrasArr.join(", ") : ""}${a.customFeatures.length ? "\nEkstra özellikler: " + a.customFeatures.join(", ") : ""}
 </context>
 
 <constraints>
 - Çıktı dosyaları: index.html, styles.css, app.js
-- ${a.style} görsel stilini uygula
+- ${getStyleDescription(a.style, "tr")} — bu stili tüm UI öğelerine uygula
 - Framework, npm, Docker KULLANMA — sadece HTML + CSS + JS
 - Her kod bloğunda yorum satırları ile açıklama yap, yapılandırılmış ve profesyonel kalitede kod yaz${a.responsive === "yes" ? "\n- Mobil uyumlu (responsive) olsun" : ""}
 - ${!simple ? "Backend gerekirse en basit yolu öner (tek dosya server veya ücretsiz servis)" : "Sunucu gerekmez, statik dosyalar yeterli"}
@@ -717,13 +748,13 @@ ${simple ? "Build a simple landing page" : "Build a simple MVP web app"}: ${a.id
 </task>
 
 <context>
-${a.audience ? "Target audience: " + a.audience + "\n" : ""}Visual style: ${a.style}${a.visualDetails ? "\nVisual details: " + a.visualDetails : ""}
+${a.audience ? "Target audience: " + a.audience + "\n" : ""}Visual style: ${getStyleDescription(a.style, "en")}${a.visualDetails ? "\nVisual details: " + a.visualDetails : ""}
 ${extrasArr.length ? "Additional needs: " + extrasArr.join(", ") : ""}${a.customFeatures.length ? "\nExtra features: " + a.customFeatures.join(", ") : ""}
 </context>
 
 <constraints>
 - Output files: index.html, styles.css, app.js
-- Apply ${a.style} visual style
+- ${getStyleDescription(a.style, "en")} — apply this style to all UI elements
 - No frameworks, npm, Docker — plain HTML + CSS + JS only
 - Add comments explaining every section of code, well-structured and production-quality${a.responsive === "yes" ? "\n- Make it mobile responsive" : ""}
 - ${!simple ? "If backend is needed, suggest the simplest path (single file server or free service)" : "No server needed, static files only"}
