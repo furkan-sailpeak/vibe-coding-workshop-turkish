@@ -17,9 +17,6 @@ const i18n = {
     ideaPlaceholder: "örn. Fotoğraflarım için bir portfolyo sitesi",
     audienceLabel: "Hedef kitle (opsiyonel)",
     audiencePlaceholder: "örn. öğrenciler, küçük işletme sahipleri...",
-    complexityLabel: "Karmaşıklık seviyesi",
-    complexBeginner: "Başlangıç",
-    complexIntermediate: "Orta Seviye",
     featuresTitle: "Uygulamanın nelere ihtiyacı var?",
     featuresSub: "Uygun olanları seç.",
     customFeatLabel: "Ekstra özellikler",
@@ -102,9 +99,6 @@ const i18n = {
     ideaPlaceholder: "e.g. A portfolio site for my photography",
     audienceLabel: "Target audience (optional)",
     audiencePlaceholder: "e.g. students, small business owners...",
-    complexityLabel: "Complexity level",
-    complexBeginner: "Beginner",
-    complexIntermediate: "Intermediate",
     featuresTitle: "What does your app need?",
     featuresSub: "Select all that apply.",
     customFeatLabel: "Extra features",
@@ -335,10 +329,6 @@ function isFeatureSelected(name) {
 function getStyle() {
   return document.querySelector(".style-card.selected")?.dataset.value || "Minimal";
 }
-function getComplexity() {
-  const row = document.querySelector('.choice-row[data-name="complexity"]');
-  return row?.querySelector(".choice-btn.selected")?.dataset.value || "beginner";
-}
 
 // ── Generate ──
 document.getElementById("generateBtn").addEventListener("click", () => {
@@ -398,7 +388,6 @@ async function generateWithAI() {
     style: getStyle(),
     visualDetails: document.getElementById("visualDetails").value.trim(),
     audience: document.getElementById("audience").value.trim(),
-    complexity: getComplexity(),
     customFeatures: [...customChips],
     lang: lang,
   };
@@ -444,6 +433,8 @@ async function callGroq(a) {
   const systemMsg = a.lang === "tr"
     ? `Sen uzman bir prompt mühendisisin. Bir AI kodlama aracına (Claude, Cursor, ChatGPT, Gemini) yapıştırılacak yapılandırılmış bir prompt oluşturuyorsun.
 
+ÖNEMLİ: Bu promptu kullanacak kişi büyük ihtimalle yeni başlayan biri. Teknik terimleri basitçe açıkla. Kullanıcının hangi araçlara ihtiyacı olduğunu (kod editörü, tarayıcı, dosya yapısı vb.) ve bunları nasıl kullanacağını anlat. Hiçbir şeyi bildiğini varsayma.
+
 Oluşturacağın prompt şu yapıyı kullanmalı:
 - <role> etiketi ile AI'a bir rol ver (örn: "Sen uzman bir frontend geliştiricisin")
 - <task> etiketi ile ana görevi tanımla
@@ -454,14 +445,25 @@ Oluşturacağın prompt şu yapıyı kullanmalı:
 - <output_format> etiketi ile çıktı formatını belirle
 
 Prompttaki <behavior> bölümü AI'a şunları emretmeli:
+- EN BAŞTA kullanıcıya ihtiyaç duyacağı araçları tanıt: kod editörü (VS Code öner ve nasıl indirilir anlat), tarayıcı, dosyaları nereye kaydedeceği (masaüstünde bir klasör oluşturması gibi). Dosya yapısını açıkla (index.html, styles.css, app.js dosyalarının ne işe yaradığını kısaca anlat).
 - Kod yazmaya başlamadan ÖNCE kullanıcıya kısa sorular sor (içerik, görseller, veriler hakkında). TEK TEK sor, her cevabı bekle.
-- Proje büyükse aşamalar halinde çalış, her aşamadan sonra "devam et" demesini bekle
-- Her kod bloğundan sonra kısa bir açıklama yap: ne yaptığını ve neden böyle yaptığını anlat
+- Proje büyükse aşamalara böl (max 3-5 aşama). Her aşama bağımsız çalışabilmeli ve test edilebilmeli. Her aşamadan sonra "devam et" demesini bekle.
+- Dikey dilim yaklaşımı kullan: her aşamada tam bir özelliği baştan sona (HTML + CSS + JS) bitir, sonra bir sonrakine geç.
+- Her kod bloğundan sonra kısa bir açıklama yap: ne yaptığını ve neden böyle yaptığını anlat. Teknik terimleri (CSS, JavaScript, HTML etiketi vb.) ilk geçtiği yerde kısaca tanımla.
 - İçerik gerektiren yerlerde kullanıcıyı yönlendir (dosya yapısı, nereye ne koyacağı)
 - Her aşamadan sonra opsiyonel geliştirmeler öner
+- Her aşamanın sonunda kısa bir özet yaz: ne yapıldı, ne çalışıyor, sırada ne var
+- Sonunda "Projeyi tarayıcıda nasıl açarsın" bölümü ekle (dosyaya çift tıkla, veya Live Server kullan gibi adım adım)
+
+Prompttaki <constraints> bölümünde şu negatif kısıtlamalar MUTLAKA olmalı:
+- Listede OLMAYAN özellikleri EKLEME
+- Önceki aşamaların kodunu baştan yazma, sadece üzerine ekle
+- Kullanıcı sormadıkça yeni kütüphane veya araç önerme
 
 SADECE promptu yaz. Giriş cümlesi, açıklama veya "İşte promptunuz" gibi ifadeler EKLEME.`
     : `You are an expert prompt engineer. You are generating a structured prompt to be pasted into an AI coding tool (Claude, Cursor, ChatGPT, Gemini).
+
+IMPORTANT: The person using this prompt is most likely a beginner. Explain technical terms simply. Tell the user what tools they need (code editor, browser, file structure, etc.) and how to use them. Do not assume any prior knowledge.
 
 The prompt you generate must use this structure:
 - <role> tag to assign the AI a persona (e.g. "You are an expert frontend developer")
@@ -473,11 +475,20 @@ The prompt you generate must use this structure:
 - <output_format> tag to specify the expected output
 
 The <behavior> section must instruct the AI to:
+- AT THE VERY START, introduce the tools the user will need: recommend a code editor (suggest VS Code and explain how to download it), a browser, and where to save files (e.g. create a folder on their desktop). Explain the file structure (what index.html, styles.css, app.js are for in simple terms).
 - BEFORE writing any code, ask the user short clarifying questions (about content, images, data). Ask ONE question at a time, wait for each answer.
-- For larger projects, work in phases/chunks — wait for "continue" before proceeding
-- After each code block, add a brief explanation: what it does and why
+- For larger projects, break into phases (max 3-5). Each phase must be independently testable and working. Wait for "continue" before proceeding.
+- Use a vertical slice approach: complete one full feature end-to-end (HTML + CSS + JS) before moving to the next.
+- After each code block, add a brief explanation: what it does and why. Define technical terms (CSS, JavaScript, HTML tags, etc.) the first time they appear.
 - Guide the user on content placement (file structure, where to put their assets)
 - After each working phase, suggest 2-3 optional improvements
+- At the end of each phase, write a short summary: what was built, what works, what comes next
+- End with a "How to open your project in the browser" section (double-click the file, or use Live Server — step by step)
+
+The <constraints> section MUST include these negative constraints:
+- Do NOT add features not listed in the requirements
+- Do NOT rewrite previous phases — only extend and build on top
+- Do NOT suggest new libraries or tools unless the user asks
 
 Output ONLY the prompt text. Do NOT add preamble like "Here is your prompt" or any explanation.`;
 
@@ -493,7 +504,7 @@ Proje bilgileri:
 - API bağlantısı: ${a.api === "yes" ? "evet" : "hayır"}
 - Mobil uyumlu: ${a.responsive === "yes" ? "evet" : "hayır"}
 - Görsel stil: ${a.style}${a.visualDetails ? "\n- Görsel detaylar: " + a.visualDetails : ""}${a.audience ? "\n- Hedef kitle: " + a.audience : ""}
-- Kullanıcı seviyesi: ${a.complexity === "beginner" ? "Yeni başlayan" : "Orta seviye"}${a.customFeatures.length ? "\n- Ekstra: " + a.customFeatures.join(", ") : ""}${extras.length ? "\n- Ek gereksinimler: " + extras.join(", ") : ""}
+${a.customFeatures.length ? "- Ekstra: " + a.customFeatures.join(", ") : ""}${extras.length ? "\n- Ek gereksinimler: " + extras.join(", ") : ""}
 
 Oluşturacağın prompt XML etiketleri kullansın (<role>, <task>, <context>, <constraints>, <behavior>, <phases>, <output_format>).
 
@@ -503,16 +514,23 @@ Oluşturacağın prompt XML etiketleri kullansın (<role>, <task>, <context>, <c
 - Framework, npm, Docker KULLANMA
 - Basit HTML + CSS + JS
 - ${!isSimple ? "Backend gerekirse en basit yol (tek dosya server veya ücretsiz servis)" : "Sadece statik dosyalar"}
-- ${a.complexity === "beginner" ? "Kod yeni başlayanlara uygun, her satırda yorum" : "Yapılandırılmış ama anlaşılır kod"}
+- Kod yeni başlayanlara uygun, her satırda yorum olsun ama yapılandırılmış ve profesyonel kalitede olsun
+- Listede OLMAYAN özellikleri EKLEME
+- Önceki aşamaların kodunu baştan yazma, sadece üzerine ekle
+- Kullanıcı sormadıkça yeni kütüphane veya araç önerme
 
 <behavior> bölümü şunları emretsin:
+- EN BAŞTA kullanıcıya araçları tanıt: VS Code (nasıl indirilir), tarayıcı, dosyaları nereye kaydedeceği. Dosya yapısını açıkla (index.html, styles.css, app.js ne işe yarar).
 - Kod yazmadan ÖNCE kullanıcıya 2-3 kısa soru sor (içerik hazır mı? görseller var mı? hangi bilgiler gerekli?)
 - Soruları TEK TEK sor, her cevabı bekle
-- ${!isSimple ? "Projeyi aşamalara böl (<phases> kullan), her aşamadan sonra 'devam et' demesini bekle" : "Projeyi tek seferde oluştur ama adım adım açıkla"}
-- Her kod bloğundan sonra kısa açıklama ekle (ne yaptığı + neden)
+- ${!isSimple ? "Projeyi aşamalara böl (max 3-5 aşama, <phases> kullan). Her aşama bağımsız çalışabilmeli ve test edilebilmeli. Her aşamadan sonra 'devam et' demesini bekle." : "Projeyi tek seferde oluştur ama adım adım açıkla"}
+- Dikey dilim yaklaşımı: her aşamada tam bir özelliği baştan sona (HTML + CSS + JS) bitir, sonra bir sonrakine geç
+- Her kod bloğundan sonra kısa açıklama ekle (ne yaptığı + neden). Teknik terimleri ilk geçtiği yerde kısaca tanımla.
 - İçerik gerektiren yerlerde yönlendir ("görselleri images/ klasörüne koy", "verileri data.js'de düzenle" gibi)
 - Her aşamadan sonra 2-3 opsiyonel geliştirme öner
-- Sonunda "Nasıl çalıştırılır" ve sorun giderme bölümü ekle`
+- Her aşamanın sonunda kısa özet: ne yapıldı, ne çalışıyor, sırada ne var
+- Sonunda "Projeyi tarayıcıda nasıl açarsın" bölümü ekle (adım adım, Live Server dahil)
+- Kısa bir sorun giderme bölümü ekle (sık karşılaşılan hatalar ve çözümleri)`
     : `Generate a structured prompt for this project: "${a.idea}"
 
 Project info:
@@ -524,7 +542,7 @@ Project info:
 - Needs API: ${a.api}
 - Mobile responsive: ${a.responsive}
 - Visual style: ${a.style}${a.visualDetails ? "\n- Visual details: " + a.visualDetails : ""}${a.audience ? "\n- Target audience: " + a.audience : ""}
-- User level: ${a.complexity === "beginner" ? "Beginner" : "Intermediate"}${a.customFeatures.length ? "\n- Extras: " + a.customFeatures.join(", ") : ""}${extras.length ? "\n- Additional needs: " + extras.join(", ") : ""}
+${a.customFeatures.length ? "- Extras: " + a.customFeatures.join(", ") : ""}${extras.length ? "\n- Additional needs: " + extras.join(", ") : ""}
 
 The prompt you generate must use XML tags (<role>, <task>, <context>, <constraints>, <behavior>, <phases>, <output_format>).
 
@@ -534,16 +552,23 @@ The <constraints> section should include:
 - No frameworks, npm, Docker
 - Simple HTML + CSS + JS only
 - ${!isSimple ? "If backend needed, suggest simplest path (single file server or free service)" : "Static files only"}
-- ${a.complexity === "beginner" ? "Beginner-friendly code with comments on every section" : "More structured but still readable code"}
+- Beginner-friendly code with comments on every section, but well-structured and production-quality
+- Do NOT add features not listed in the requirements
+- Do NOT rewrite previous phases — only extend and build on top
+- Do NOT suggest new libraries or tools unless the user asks
 
 The <behavior> section must instruct the AI to:
+- AT THE VERY START, introduce the tools needed: VS Code (how to download), a browser, where to save files. Explain the file structure (what index.html, styles.css, app.js are for).
 - BEFORE writing code, ask the user 2-3 short clarifying questions (is content ready? do they have images? what data is needed?)
 - Ask questions ONE at a time, wait for each answer
-- ${!isSimple ? "Break the project into phases (use <phases>), wait for 'continue' after each phase" : "Build in one go but explain step by step"}
-- After each code block, add a brief explanation (what it does + why)
+- ${!isSimple ? "Break the project into phases (max 3-5, use <phases>). Each phase must be independently testable and working. Wait for 'continue' after each phase." : "Build in one go but explain step by step"}
+- Use vertical slice approach: complete one full feature end-to-end (HTML + CSS + JS) before moving to the next
+- After each code block, add a brief explanation (what it does + why). Define technical terms the first time they appear.
 - Guide user on content placement ("put images in images/", "edit data in data.js")
 - After each phase, suggest 2-3 optional improvements
-- End with a "How to run" section and short troubleshooting`;
+- At the end of each phase, write a short summary: what was built, what works, what comes next
+- End with a "How to open your project in the browser" section (step by step, including Live Server)
+- Add a short troubleshooting section (common errors and how to fix them)`;
 
   const res = await fetch("/api/generate", {
     method: "POST",
@@ -568,7 +593,7 @@ function buildFallbackPrompt(a) {
     if (a.api === "yes") extrasArr.push("API bağlantısı");
 
     return `<role>
-Sen uzman bir frontend geliştiricisin. Yeni başlayanlara yardım eden, sabırlı bir mentorsun.
+Sen uzman bir frontend geliştiricisin. Yeni başlayanlara yardım eden, sabırlı bir mentorsun. Kullanıcının hiçbir teknik bilgisi olmadığını varsay — her adımı sıfırdan açıkla.
 </role>
 
 <task>
@@ -577,30 +602,39 @@ ${simple ? "Basit bir ana sayfa oluştur" : "Basit bir MVP web uygulaması oluş
 
 <context>
 ${a.audience ? "Hedef kitle: " + a.audience + "\n" : ""}Görsel stil: ${a.style}${a.visualDetails ? "\nGörsel detaylar: " + a.visualDetails : ""}
-Kullanıcı seviyesi: ${a.complexity === "beginner" ? "Yeni başlayan" : "Orta seviye"}${extrasArr.length ? "\nEk gereksinimler: " + extrasArr.join(", ") : ""}${a.customFeatures.length ? "\nEkstra özellikler: " + a.customFeatures.join(", ") : ""}
+${extrasArr.length ? "Ek gereksinimler: " + extrasArr.join(", ") : ""}${a.customFeatures.length ? "\nEkstra özellikler: " + a.customFeatures.join(", ") : ""}
 </context>
 
 <constraints>
 - Çıktı dosyaları: index.html, styles.css, app.js
 - ${a.style} görsel stilini uygula
 - Framework, npm, Docker KULLANMA — sadece HTML + CSS + JS
-- ${a.complexity === "beginner" ? "Her kod bloğunda yorum satırları ile açıklama yap" : "Yapılandırılmış ama anlaşılır kod yaz"}${a.responsive === "yes" ? "\n- Mobil uyumlu (responsive) olsun" : ""}
+- Her kod bloğunda yorum satırları ile açıklama yap, yapılandırılmış ve profesyonel kalitede kod yaz${a.responsive === "yes" ? "\n- Mobil uyumlu (responsive) olsun" : ""}
 - ${!simple ? "Backend gerekirse en basit yolu öner (tek dosya server veya ücretsiz servis)" : "Sunucu gerekmez, statik dosyalar yeterli"}
+- Listede OLMAYAN özellikleri EKLEME
+- Önceki aşamaların kodunu baştan yazma, sadece üzerine ekle
+- Kullanıcı sormadıkça yeni kütüphane veya araç önerme
 </constraints>
 
 <behavior>
+- EN BAŞTA bana ihtiyacım olan araçları tanıt:
+  * Kod editörü: VS Code öner (https://code.visualstudio.com), nasıl indirip kurulacağını anlat
+  * Masaüstümde bir proje klasörü oluşturmamı söyle
+  * index.html, styles.css, app.js dosyalarının ne işe yaradığını kısaca açıkla (HTML = sayfa yapısı, CSS = görünüm, JS = etkileşim)
 - Kod yazmaya başlamadan ÖNCE bana 2-3 kısa soru sor:
   * İçeriklerim (yazılar, görseller, veriler) hazır mı?
   * Hangi bilgileri eklemem gerekiyor?
   * Özel bir renk/font tercihi var mı?
 - Soruları TEK TEK sor, her cevabımı bekle
-- ${!simple ? "Projeyi aşamalara böl ve her aşamadan sonra 'devam et' dememi bekle" : "Projeyi tek seferde oluştur ama adım adım açıkla"}
-- Her kod bloğundan sonra kısa bir açıklama ekle: ne yaptığını ve neden böyle yaptığını anlat
+- ${!simple ? "Projeyi aşamalara böl (max 3-5 aşama). Her aşama bağımsız çalışabilmeli ve test edilebilmeli. Her aşamadan sonra 'devam et' dememi bekle." : "Projeyi tek seferde oluştur ama adım adım açıkla"}
+- Dikey dilim yaklaşımı: her aşamada tam bir özelliği baştan sona (HTML + CSS + JS) bitir, sonra bir sonrakine geç
+- Her kod bloğundan sonra kısa bir açıklama ekle: ne yaptığını ve neden böyle yaptığını anlat. Teknik terimleri ilk geçtiği yerde kısaca tanımla.
 - İçerik gerektiren yerlerde beni yönlendir:
   * "Fotoğraflarını images/ klasörüne koy"
   * "Site bilgilerini data.js dosyasında düzenle"
   * "Bu bölümdeki metinleri kendi içeriklerinle değiştir"
 - Her aşamadan sonra 2-3 opsiyonel geliştirme öner (kolay → zor sıralı)
+- Her aşamanın sonunda kısa özet: ne yapıldı, ne çalışıyor, sırada ne var
 </behavior>
 
 <output_format>
@@ -608,8 +642,11 @@ Kullanıcı seviyesi: ${a.complexity === "beginner" ? "Yeni başlayan" : "Orta s
 - Bir README.md dosyası oluştur (proje açıklaması, kurulum, kullanım)
 - Bir .gitignore dosyası oluştur (node_modules, .env, .DS_Store vb.)
 - Her dosyanın başında dosya adını belirt
-- Sonunda "Nasıl çalıştırılır" bölümü ekle (adım adım)
-- Kısa bir "Sorun giderme" bölümü ekle (sık karşılaşılan hatalar)
+- Sonunda "Projeyi tarayıcıda nasıl açarsın" bölümü ekle:
+  * index.html dosyasına çift tıkla
+  * VEYA VS Code'da Live Server eklentisini kur ve "Go Live" butonuna bas
+  * Adım adım, ekran görüntüsü tarif eder gibi anlat
+- Kısa bir "Sorun giderme" bölümü ekle (sık karşılaşılan hatalar ve çözümleri)
 </output_format>`;
   } else {
     if (a.accounts === "yes") extrasArr.push("simple user login/register");
@@ -618,7 +655,7 @@ Kullanıcı seviyesi: ${a.complexity === "beginner" ? "Yeni başlayan" : "Orta s
     if (a.api === "yes") extrasArr.push("API integration");
 
     return `<role>
-You are an expert frontend developer. You are a patient mentor who helps beginners.
+You are an expert frontend developer. You are a patient mentor who helps beginners. Assume the user has zero technical knowledge — explain every step from scratch.
 </role>
 
 <task>
@@ -627,30 +664,39 @@ ${simple ? "Build a simple landing page" : "Build a simple MVP web app"}: ${a.id
 
 <context>
 ${a.audience ? "Target audience: " + a.audience + "\n" : ""}Visual style: ${a.style}${a.visualDetails ? "\nVisual details: " + a.visualDetails : ""}
-User level: ${a.complexity === "beginner" ? "Beginner" : "Intermediate"}${extrasArr.length ? "\nAdditional needs: " + extrasArr.join(", ") : ""}${a.customFeatures.length ? "\nExtra features: " + a.customFeatures.join(", ") : ""}
+${extrasArr.length ? "Additional needs: " + extrasArr.join(", ") : ""}${a.customFeatures.length ? "\nExtra features: " + a.customFeatures.join(", ") : ""}
 </context>
 
 <constraints>
 - Output files: index.html, styles.css, app.js
 - Apply ${a.style} visual style
 - No frameworks, npm, Docker — plain HTML + CSS + JS only
-- ${a.complexity === "beginner" ? "Add comments explaining every section of code" : "More structured but still readable code"}${a.responsive === "yes" ? "\n- Make it mobile responsive" : ""}
+- Add comments explaining every section of code, well-structured and production-quality${a.responsive === "yes" ? "\n- Make it mobile responsive" : ""}
 - ${!simple ? "If backend is needed, suggest the simplest path (single file server or free service)" : "No server needed, static files only"}
+- Do NOT add features not listed in the requirements
+- Do NOT rewrite previous phases — only extend and build on top
+- Do NOT suggest new libraries or tools unless the user asks
 </constraints>
 
 <behavior>
+- AT THE VERY START, introduce the tools I'll need:
+  * Code editor: recommend VS Code (https://code.visualstudio.com), explain how to download and install it
+  * Tell me to create a project folder on my desktop
+  * Briefly explain what index.html, styles.css, and app.js are for (HTML = page structure, CSS = appearance, JS = interactivity)
 - BEFORE writing any code, ask me 2-3 short questions:
   * Is my content (text, images, data) ready?
   * What specific info do I need to provide?
   * Any color/font preferences?
 - Ask questions ONE at a time, wait for each answer
-- ${!simple ? "Break the project into phases — wait for me to say 'continue' after each phase" : "Build in one go but explain step by step"}
-- After each code block, add a brief explanation: what it does and why
+- ${!simple ? "Break the project into phases (max 3-5). Each phase must be independently testable and working. Wait for me to say 'continue' after each phase." : "Build in one go but explain step by step"}
+- Use vertical slice approach: complete one full feature end-to-end (HTML + CSS + JS) before moving to the next
+- After each code block, add a brief explanation: what it does and why. Define technical terms the first time they appear.
 - Guide me on content placement:
   * "Put your images in the images/ folder"
   * "Edit your site data in data.js"
   * "Replace the placeholder text with your own content"
 - After each phase, suggest 2-3 optional improvements (easy → hard)
+- At the end of each phase, write a short summary: what was built, what works, what comes next
 </behavior>
 
 <output_format>
@@ -658,8 +704,11 @@ User level: ${a.complexity === "beginner" ? "Beginner" : "Intermediate"}${extras
 - Create a README.md file (project description, setup, usage)
 - Create a .gitignore file (node_modules, .env, .DS_Store, etc.)
 - Label each file clearly at the top
-- End with a "How to run" section (step by step)
-- Add a short "Troubleshooting" section (common issues)
+- End with a "How to open your project in the browser" section:
+  * Double-click the index.html file
+  * OR install the Live Server extension in VS Code and click "Go Live"
+  * Explain step by step, as if describing a screenshot
+- Add a short "Troubleshooting" section (common errors and how to fix them)
 </output_format>`;
   }
 }
