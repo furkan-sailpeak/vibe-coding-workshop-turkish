@@ -435,60 +435,90 @@ async function callGroq(a) {
 
 ÖNEMLİ: Bu promptu kullanacak kişi büyük ihtimalle yeni başlayan biri. Teknik terimleri basitçe açıkla. Kullanıcının hangi araçlara ihtiyacı olduğunu (kod editörü, tarayıcı, dosya yapısı vb.) ve bunları nasıl kullanacağını anlat. Hiçbir şeyi bildiğini varsayma.
 
+FORMATLAMA KURALLARI (KESİNLİKLE UYULMALI):
+- Her XML bölümünde (<constraints>, <behavior>, <phases>, <output_format>) madde işaretli liste (bullet points) kullan, ASLA düz paragraf yazma.
+- <role> bölümünde "Kullanıcının hiçbir teknik bilgisi olmadığını varsay — her adımı sıfırdan açıkla" ifadesini ekle.
+
 Oluşturacağın prompt şu yapıyı kullanmalı:
-- <role> etiketi ile AI'a bir rol ver (örn: "Sen uzman bir frontend geliştiricisin")
+- <role> etiketi ile AI'a bir rol ver (örn: "Sen uzman bir frontend geliştiricisin") + yeni başlayanlara sıfırdan açıklama yapması gerektiğini belirt
 - <task> etiketi ile ana görevi tanımla
 - <context> etiketi ile proje bilgilerini ver
-- <constraints> etiketi ile kuralları listele
-- <phases> etiketi ile projeyi aşamalara böl (büyük projeler için)
-- <behavior> etiketi ile AI'ın nasıl davranacağını belirle (sorular sorması, adım adım ilerlemesi vb.)
-- <output_format> etiketi ile çıktı formatını belirle
+- <constraints> etiketi ile kuralları madde madde listele
+- <phases> etiketi ile projeyi aşamalara böl
+- <behavior> etiketi ile AI'ın nasıl davranacağını madde madde belirle
+- <output_format> etiketi ile çıktı formatını madde madde belirle
+
+AŞAMA KURALLARI (<phases> bölümü için):
+- Her aşama tek başına çalışan, test edilebilir bir özellik olmalı (dikey dilim). "Dosya oluştur" gibi sadece iskele kuran aşamalar YAPMA.
+- İlk aşama her zaman en temel özelliği çalışır halde içermeli (örn: to-do uygulaması → görev ekleme + listeleme bir arada).
+- Kullanıcının SEÇTİĞİ özellikler (responsive, veritabanı vb.) opsiyonel DEĞİL, temel aşamalara dahil edilmeli.
+- İlişkisiz özellikleri aynı aşamaya koyma (örn: responsive + veritabanı aynı aşamada OLMAZ).
+- Her aşamanın açıklaması kısa ve net olmalı: "Bu aşamada X özelliği eklenecek ve Y çalışır hale gelecek."
 
 Prompttaki <behavior> bölümü AI'a şunları emretmeli:
 - EN BAŞTA kullanıcıya ihtiyaç duyacağı araçları tanıt: kod editörü (VS Code öner ve nasıl indirilir anlat), tarayıcı, dosyaları nereye kaydedeceği (masaüstünde bir klasör oluşturması gibi). Dosya yapısını açıkla (index.html, styles.css, app.js dosyalarının ne işe yaradığını kısaca anlat).
-- Kod yazmaya başlamadan ÖNCE kullanıcıya kısa sorular sor (içerik, görseller, veriler hakkında). TEK TEK sor, her cevabı bekle.
-- Proje büyükse aşamalara böl (max 3-5 aşama). Her aşama bağımsız çalışabilmeli ve test edilebilmeli. Her aşamadan sonra "devam et" demesini bekle.
-- Dikey dilim yaklaşımı kullan: her aşamada tam bir özelliği baştan sona (HTML + CSS + JS) bitir, sonra bir sonrakine geç.
+- Kod yazmaya başlamadan ÖNCE kullanıcıya PROJEYE ÖZEL kısa sorular sor (genel sorular değil, projenin içeriğine göre). TEK TEK sor, her cevabı bekle.
+- Her aşamada tam bir özelliği baştan sona (HTML + CSS + JS) bitir, sonra bir sonrakine geç.
 - Her kod bloğundan sonra kısa bir açıklama yap: ne yaptığını ve neden böyle yaptığını anlat. Teknik terimleri (CSS, JavaScript, HTML etiketi vb.) ilk geçtiği yerde kısaca tanımla.
 - İçerik gerektiren yerlerde kullanıcıyı yönlendir (dosya yapısı, nereye ne koyacağı)
 - Her aşamadan sonra opsiyonel geliştirmeler öner
 - Her aşamanın sonunda kısa bir özet yaz: ne yapıldı, ne çalışıyor, sırada ne var
-- Sonunda "Projeyi tarayıcıda nasıl açarsın" bölümü ekle (dosyaya çift tıkla, veya Live Server kullan gibi adım adım)
 
 Prompttaki <constraints> bölümünde şu negatif kısıtlamalar MUTLAKA olmalı:
 - Listede OLMAYAN özellikleri EKLEME
 - Önceki aşamaların kodunu baştan yazma, sadece üzerine ekle
 - Kullanıcı sormadıkça yeni kütüphane veya araç önerme
 
+Prompttaki <output_format> bölümü şunları İÇERMELİ:
+- Dosya listesi: index.html, styles.css, app.js
+- Her dosyanın başında dosya adını belirt
+- "Projeyi tarayıcıda nasıl açarsın" bölümü (index.html'e çift tıkla veya VS Code Live Server kullan — adım adım)
+- Kısa bir "Sorun giderme" bölümü (sık karşılaşılan hatalar ve çözümleri)
+
 SADECE promptu yaz. Giriş cümlesi, açıklama veya "İşte promptunuz" gibi ifadeler EKLEME.`
     : `You are an expert prompt engineer. You are generating a structured prompt to be pasted into an AI coding tool (Claude, Cursor, ChatGPT, Gemini).
 
 IMPORTANT: The person using this prompt is most likely a beginner. Explain technical terms simply. Tell the user what tools they need (code editor, browser, file structure, etc.) and how to use them. Do not assume any prior knowledge.
 
+FORMATTING RULES (MUST FOLLOW):
+- In every XML section (<constraints>, <behavior>, <phases>, <output_format>), use bullet points. NEVER write prose paragraphs.
+- In the <role> section, include "Assume the user has zero technical knowledge — explain every step from scratch."
+
 The prompt you generate must use this structure:
-- <role> tag to assign the AI a persona (e.g. "You are an expert frontend developer")
+- <role> tag to assign the AI a persona (e.g. "You are an expert frontend developer") + state that the user is a beginner and needs everything explained from scratch
 - <task> tag to define the main goal
 - <context> tag for project details
-- <constraints> tag for rules and limitations
-- <phases> tag to break the project into steps (for larger projects)
-- <behavior> tag to define how the AI should interact (ask questions, work in chunks, etc.)
-- <output_format> tag to specify the expected output
+- <constraints> tag for rules — as a bullet-point list
+- <phases> tag to break the project into steps
+- <behavior> tag to define how the AI should interact — as a bullet-point list
+- <output_format> tag to specify the expected output — as a bullet-point list
+
+PHASE RULES (for the <phases> section):
+- Each phase must be a standalone, testable feature (vertical slice). Do NOT create phases that only scaffold files with no working feature.
+- Phase 1 must always include the most basic working feature (e.g. for a to-do app → adding + listing tasks together, not just "create HTML structure").
+- Features the user SELECTED (responsive, database, etc.) are NOT optional — they must be included in the core phases.
+- Do NOT bundle unrelated features in the same phase (e.g. responsive + database in one phase is WRONG).
+- Each phase description should be short and clear: "In this phase, X feature will be added and Y will work."
 
 The <behavior> section must instruct the AI to:
 - AT THE VERY START, introduce the tools the user will need: recommend a code editor (suggest VS Code and explain how to download it), a browser, and where to save files (e.g. create a folder on their desktop). Explain the file structure (what index.html, styles.css, app.js are for in simple terms).
-- BEFORE writing any code, ask the user short clarifying questions (about content, images, data). Ask ONE question at a time, wait for each answer.
-- For larger projects, break into phases (max 3-5). Each phase must be independently testable and working. Wait for "continue" before proceeding.
-- Use a vertical slice approach: complete one full feature end-to-end (HTML + CSS + JS) before moving to the next.
+- BEFORE writing any code, ask the user short clarifying questions that are SPECIFIC TO THE PROJECT (not generic questions — tailor them to what the app actually needs). Ask ONE question at a time, wait for each answer.
+- Complete one full feature end-to-end (HTML + CSS + JS) per phase before moving to the next.
 - After each code block, add a brief explanation: what it does and why. Define technical terms (CSS, JavaScript, HTML tags, etc.) the first time they appear.
 - Guide the user on content placement (file structure, where to put their assets)
 - After each working phase, suggest 2-3 optional improvements
 - At the end of each phase, write a short summary: what was built, what works, what comes next
-- End with a "How to open your project in the browser" section (double-click the file, or use Live Server — step by step)
 
 The <constraints> section MUST include these negative constraints:
 - Do NOT add features not listed in the requirements
 - Do NOT rewrite previous phases — only extend and build on top
 - Do NOT suggest new libraries or tools unless the user asks
+
+The <output_format> section MUST include:
+- File list: index.html, styles.css, app.js
+- Label each file clearly at the top
+- A "How to open your project in the browser" section (double-click index.html, or use VS Code Live Server — step by step)
+- A short "Troubleshooting" section (common errors and how to fix them)
 
 Output ONLY the prompt text. Do NOT add preamble like "Here is your prompt" or any explanation.`;
 
@@ -507,6 +537,13 @@ Proje bilgileri:
 ${a.customFeatures.length ? "- Ekstra: " + a.customFeatures.join(", ") : ""}${extras.length ? "\n- Ek gereksinimler: " + extras.join(", ") : ""}
 
 Oluşturacağın prompt XML etiketleri kullansın (<role>, <task>, <context>, <constraints>, <behavior>, <phases>, <output_format>).
+HER bölümde madde işaretli liste kullan, düz paragraf YAZMA.
+
+<phases> bölümü için kurallar:
+- Her aşama tek başına çalışan bir özellik olmalı (sadece dosya oluşturma gibi aşamalar YAPMA)
+- İlk aşama en temel özelliği çalışır halde içermeli
+- Kullanıcının SEÇTİĞİ özellikler (responsive, veritabanı vb.) opsiyonel DEĞİL, temel aşamalara dahil et
+- İlişkisiz özellikleri aynı aşamaya koyma
 
 <constraints> bölümü şunları içersin:
 - Çıktı: index.html, styles.css, app.js
@@ -521,16 +558,19 @@ Oluşturacağın prompt XML etiketleri kullansın (<role>, <task>, <context>, <c
 
 <behavior> bölümü şunları emretsin:
 - EN BAŞTA kullanıcıya araçları tanıt: VS Code (nasıl indirilir), tarayıcı, dosyaları nereye kaydedeceği. Dosya yapısını açıkla (index.html, styles.css, app.js ne işe yarar).
-- Kod yazmadan ÖNCE kullanıcıya 2-3 kısa soru sor (içerik hazır mı? görseller var mı? hangi bilgiler gerekli?)
-- Soruları TEK TEK sor, her cevabı bekle
+- Kod yazmadan ÖNCE kullanıcıya PROJEYE ÖZEL 2-3 kısa soru sor (genel sorular değil, bu projenin içeriğine özel sorular). Soruları TEK TEK sor, her cevabı bekle.
 - ${!isSimple ? "Projeyi aşamalara böl (max 3-5 aşama, <phases> kullan). Her aşama bağımsız çalışabilmeli ve test edilebilmeli. Her aşamadan sonra 'devam et' demesini bekle." : "Projeyi tek seferde oluştur ama adım adım açıkla"}
-- Dikey dilim yaklaşımı: her aşamada tam bir özelliği baştan sona (HTML + CSS + JS) bitir, sonra bir sonrakine geç
+- Her aşamada tam bir özelliği baştan sona (HTML + CSS + JS) bitir, sonra bir sonrakine geç
 - Her kod bloğundan sonra kısa açıklama ekle (ne yaptığı + neden). Teknik terimleri ilk geçtiği yerde kısaca tanımla.
 - İçerik gerektiren yerlerde yönlendir ("görselleri images/ klasörüne koy", "verileri data.js'de düzenle" gibi)
 - Her aşamadan sonra 2-3 opsiyonel geliştirme öner
 - Her aşamanın sonunda kısa özet: ne yapıldı, ne çalışıyor, sırada ne var
-- Sonunda "Projeyi tarayıcıda nasıl açarsın" bölümü ekle (adım adım, Live Server dahil)
-- Kısa bir sorun giderme bölümü ekle (sık karşılaşılan hatalar ve çözümleri)`
+
+<output_format> bölümü şunları içersin:
+- Dosya listesi: index.html, styles.css, app.js
+- Her dosyanın başında dosya adı
+- "Projeyi tarayıcıda nasıl açarsın" bölümü (adım adım, Live Server dahil)
+- Kısa "Sorun giderme" bölümü (sık hatalar ve çözümleri)`
     : `Generate a structured prompt for this project: "${a.idea}"
 
 Project info:
@@ -545,6 +585,13 @@ Project info:
 ${a.customFeatures.length ? "- Extras: " + a.customFeatures.join(", ") : ""}${extras.length ? "\n- Additional needs: " + extras.join(", ") : ""}
 
 The prompt you generate must use XML tags (<role>, <task>, <context>, <constraints>, <behavior>, <phases>, <output_format>).
+Use bullet points in EVERY section. NEVER write prose paragraphs.
+
+Phase rules for the <phases> section:
+- Each phase must be a standalone working feature (no scaffolding-only phases)
+- Phase 1 must include the most basic working feature
+- Features the user SELECTED (responsive, database, etc.) are NOT optional — include them in core phases
+- Do NOT bundle unrelated features in the same phase
 
 The <constraints> section should include:
 - Output files: index.html, styles.css, app.js
@@ -559,16 +606,19 @@ The <constraints> section should include:
 
 The <behavior> section must instruct the AI to:
 - AT THE VERY START, introduce the tools needed: VS Code (how to download), a browser, where to save files. Explain the file structure (what index.html, styles.css, app.js are for).
-- BEFORE writing code, ask the user 2-3 short clarifying questions (is content ready? do they have images? what data is needed?)
-- Ask questions ONE at a time, wait for each answer
+- BEFORE writing code, ask the user 2-3 short clarifying questions SPECIFIC TO THIS PROJECT (not generic questions — tailor them to what the app needs). Ask ONE at a time, wait for each answer.
 - ${!isSimple ? "Break the project into phases (max 3-5, use <phases>). Each phase must be independently testable and working. Wait for 'continue' after each phase." : "Build in one go but explain step by step"}
-- Use vertical slice approach: complete one full feature end-to-end (HTML + CSS + JS) before moving to the next
+- Complete one full feature end-to-end (HTML + CSS + JS) per phase before moving to the next
 - After each code block, add a brief explanation (what it does + why). Define technical terms the first time they appear.
 - Guide user on content placement ("put images in images/", "edit data in data.js")
 - After each phase, suggest 2-3 optional improvements
 - At the end of each phase, write a short summary: what was built, what works, what comes next
-- End with a "How to open your project in the browser" section (step by step, including Live Server)
-- Add a short troubleshooting section (common errors and how to fix them)`;
+
+The <output_format> section must include:
+- File list: index.html, styles.css, app.js
+- Label each file at the top
+- "How to open your project in the browser" section (step by step, including Live Server)
+- Short "Troubleshooting" section (common errors and fixes)`;
 
   const res = await fetch("/api/generate", {
     method: "POST",
