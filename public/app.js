@@ -439,14 +439,14 @@ FORMATLAMA KURALLARI (KESİNLİKLE UYULMALI):
 - Her XML bölümünde (<constraints>, <behavior>, <phases>, <output_format>) madde işaretli liste (bullet points) kullan, ASLA düz paragraf yazma.
 - <role> bölümünde "Kullanıcının hiçbir teknik bilgisi olmadığını varsay — her adımı sıfırdan açıkla" ifadesini ekle.
 
-Oluşturacağın prompt şu yapıyı kullanmalı:
-- <role> etiketi ile AI'a bir rol ver (örn: "Sen uzman bir frontend geliştiricisin") + yeni başlayanlara sıfırdan açıklama yapması gerektiğini belirt
-- <task> etiketi ile ana görevi tanımla
-- <context> etiketi ile proje bilgilerini ver
-- <constraints> etiketi ile kuralları madde madde listele
-- <phases> etiketi ile projeyi aşamalara böl
-- <behavior> etiketi ile AI'ın nasıl davranacağını madde madde belirle
-- <output_format> etiketi ile çıktı formatını madde madde belirle
+Oluşturacağın prompt şu yapıyı kullanmalı (HER etiketi MUTLAKA kapat — açılan her <tag> için </tag> olmalı):
+- <role>...</role> etiketi ile AI'a bir rol ver (örn: "Sen uzman bir frontend geliştiricisin") + yeni başlayanlara sıfırdan açıklama yapması gerektiğini belirt
+- <task>...</task> etiketi ile ana görevi tanımla
+- <context>...</context> etiketi ile proje bilgilerini ver
+- <constraints>...</constraints> etiketi ile kuralları madde madde listele
+- <phases>...</phases> etiketi ile projeyi aşamalara böl
+- <behavior>...</behavior> etiketi ile AI'ın nasıl davranacağını madde madde belirle
+- <output_format>...</output_format> etiketi ile çıktı formatını madde madde belirle
 
 AŞAMA KURALLARI (<phases> bölümü için):
 - Her aşama tek başına çalışan, test edilebilir bir özellik olmalı (dikey dilim). "Dosya oluştur" gibi sadece iskele kuran aşamalar YAPMA.
@@ -475,6 +475,8 @@ Prompttaki <output_format> bölümü şunları İÇERMELİ:
 - "Projeyi tarayıcıda nasıl açarsın" bölümü (index.html'e çift tıkla veya VS Code Live Server kullan — adım adım)
 - Kısa bir "Sorun giderme" bölümü (sık karşılaşılan hatalar ve çözümleri)
 
+KRİTİK: Her XML etiketini MUTLAKA kapat. Örnek: <role>...içerik...</role>, <task>...içerik...</task> vb. Kapanmamış etiket BIRAKMA.
+
 SADECE promptu yaz. Giriş cümlesi, açıklama veya "İşte promptunuz" gibi ifadeler EKLEME.`
     : `You are an expert prompt engineer. You are generating a structured prompt to be pasted into an AI coding tool (Claude, Cursor, ChatGPT, Gemini).
 
@@ -484,14 +486,14 @@ FORMATTING RULES (MUST FOLLOW):
 - In every XML section (<constraints>, <behavior>, <phases>, <output_format>), use bullet points. NEVER write prose paragraphs.
 - In the <role> section, include "Assume the user has zero technical knowledge — explain every step from scratch."
 
-The prompt you generate must use this structure:
-- <role> tag to assign the AI a persona (e.g. "You are an expert frontend developer") + state that the user is a beginner and needs everything explained from scratch
-- <task> tag to define the main goal
-- <context> tag for project details
-- <constraints> tag for rules — as a bullet-point list
-- <phases> tag to break the project into steps
-- <behavior> tag to define how the AI should interact — as a bullet-point list
-- <output_format> tag to specify the expected output — as a bullet-point list
+The prompt you generate must use this structure (EVERY tag MUST be closed — each <tag> needs a matching </tag>):
+- <role>...</role> tag to assign the AI a persona (e.g. "You are an expert frontend developer") + state that the user is a beginner and needs everything explained from scratch
+- <task>...</task> tag to define the main goal
+- <context>...</context> tag for project details
+- <constraints>...</constraints> tag for rules — as a bullet-point list
+- <phases>...</phases> tag to break the project into steps
+- <behavior>...</behavior> tag to define how the AI should interact — as a bullet-point list
+- <output_format>...</output_format> tag to specify the expected output — as a bullet-point list
 
 PHASE RULES (for the <phases> section):
 - Each phase must be a standalone, testable feature (vertical slice). Do NOT create phases that only scaffold files with no working feature.
@@ -520,6 +522,8 @@ The <output_format> section MUST include:
 - A "How to open your project in the browser" section (double-click index.html, or use VS Code Live Server — step by step)
 - A short "Troubleshooting" section (common errors and how to fix them)
 
+CRITICAL: Every XML tag MUST be closed. Example: <role>...content...</role>, <task>...content...</task>, etc. Do NOT leave any unclosed tags.
+
 Output ONLY the prompt text. Do NOT add preamble like "Here is your prompt" or any explanation.`;
 
   const userMsg = a.lang === "tr"
@@ -536,8 +540,8 @@ Proje bilgileri:
 - Görsel stil: ${a.style}${a.visualDetails ? "\n- Görsel detaylar: " + a.visualDetails : ""}${a.audience ? "\n- Hedef kitle: " + a.audience : ""}
 ${a.customFeatures.length ? "- Ekstra: " + a.customFeatures.join(", ") : ""}${extras.length ? "\n- Ek gereksinimler: " + extras.join(", ") : ""}
 
-Oluşturacağın prompt XML etiketleri kullansın (<role>, <task>, <context>, <constraints>, <behavior>, <phases>, <output_format>).
-HER bölümde madde işaretli liste kullan, düz paragraf YAZMA.
+Oluşturacağın prompt XML etiketleri kullansın (<role>...</role>, <task>...</task>, <context>...</context>, <constraints>...</constraints>, <behavior>...</behavior>, <phases>...</phases>, <output_format>...</output_format>).
+HER etiketi MUTLAKA kapat (açılan her <tag> için </tag> olmalı). HER bölümde madde işaretli liste kullan, düz paragraf YAZMA.
 
 <phases> bölümü için kurallar:
 - Her aşama tek başına çalışan bir özellik olmalı (sadece dosya oluşturma gibi aşamalar YAPMA)
@@ -584,8 +588,8 @@ Project info:
 - Visual style: ${a.style}${a.visualDetails ? "\n- Visual details: " + a.visualDetails : ""}${a.audience ? "\n- Target audience: " + a.audience : ""}
 ${a.customFeatures.length ? "- Extras: " + a.customFeatures.join(", ") : ""}${extras.length ? "\n- Additional needs: " + extras.join(", ") : ""}
 
-The prompt you generate must use XML tags (<role>, <task>, <context>, <constraints>, <behavior>, <phases>, <output_format>).
-Use bullet points in EVERY section. NEVER write prose paragraphs.
+The prompt you generate must use XML tags (<role>...</role>, <task>...</task>, <context>...</context>, <constraints>...</constraints>, <behavior>...</behavior>, <phases>...</phases>, <output_format>...</output_format>).
+EVERY tag MUST be closed (each <tag> needs a matching </tag>). Use bullet points in EVERY section. NEVER write prose paragraphs.
 
 Phase rules for the <phases> section:
 - Each phase must be a standalone working feature (no scaffolding-only phases)
