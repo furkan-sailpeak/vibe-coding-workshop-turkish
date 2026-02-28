@@ -5,12 +5,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vibes 101</title>
-  <meta name="description" content="Generate AI-ready prompts for your app ideas. Answer a few questions and get a structured prompt to paste into Claude, Cursor, ChatGPT, or Gemini." />
+  <meta name="description"
+    content="Generate AI-ready prompts for your app ideas. Answer a few questions and get a structured prompt to paste into Claude, Cursor, ChatGPT, or Gemini." />
   <link rel="canonical" href="https://vibes101.app" />
 
   <!-- Open Graph -->
   <meta property="og:title" content="Vibes 101: AI Prompt Generator for Vibe Coding" />
-  <meta property="og:description" content="Generate AI-ready prompts for your app ideas. Answer a few questions and get a structured prompt to paste into any AI coding tool." />
+  <meta property="og:description"
+    content="Generate AI-ready prompts for your app ideas. Answer a few questions and get a structured prompt to paste into any AI coding tool." />
   <meta property="og:image" content="https://vibes101.app/2.png" />
   <meta property="og:url" content="https://vibes101.app" />
   <meta property="og:type" content="website" />
@@ -18,7 +20,8 @@
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Vibes 101: AI Prompt Generator for Vibe Coding" />
-  <meta name="twitter:description" content="Generate AI-ready prompts for your app ideas. Answer a few questions and get a structured prompt to paste into any AI coding tool." />
+  <meta name="twitter:description"
+    content="Generate AI-ready prompts for your app ideas. Answer a few questions and get a structured prompt to paste into any AI coding tool." />
   <meta name="twitter:image" content="https://vibes101.app/2.png" />
 
   <!-- Favicon & Theme -->
@@ -36,7 +39,8 @@
   <div class="topbar">
     <img src="vibes101-logo.svg" alt="Vibes 101" class="logo" onclick="goTo(0)" style="cursor:pointer" />
     <div class="topbar-right">
-      <div class="progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Step progress">
+      <div class="progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+        aria-label="Step progress">
         <div class="progress-fill" id="progressFill"></div>
       </div>
       <span class="step-indicator" id="stepIndicator"></span>
@@ -104,41 +108,73 @@
 
           <div class="learn-block">
             <h3 data-i18n="learnPromptTitle">Prompt Nedir?</h3>
-            <p data-i18n="learnPromptP1">Prompt, bir yapay zeka modeline ne yapmasını istediğini anlatan yapılandırılmış bir talimat "mesajıdır". Harvard Üniversitesi'nin AI araştırmalarına göre, spesifik ve bağlam içeren promptlar genel olanlara kıyasla çok daha doğru sonuçlar üretir.</p>
-            <p data-i18n="learnPromptP2">Etkili prompt mühendisliği birkaç temel ilkeye dayanır: açık ve doğrudan olma, bağlam sağlama, format belirtme, örnekler verme ve kısıtlamaları açıkça tanımlama. Bu ilkeler hem akademik araştırmalarla hem de Anthropic'in en iyi uygulamalarıyla desteklenmektedir.</p>
-            <p data-i18n="learnPromptP3">Vibes 101, bu ilkeleri uygulayarak senin cevaplarını yapılandırılmış promptlara dönüştürür. Ayrıntılar için aşağıdaki "Metodolojimiz" bölümüne bakabilirsin.</p>
+            <p data-i18n="learnPromptP1">Prompt, bir yapay zeka modeline ne yapmasını istediğini anlatan yapılandırılmış
+              bir talimat "mesajıdır". Harvard Üniversitesi'nin AI araştırmalarına göre, spesifik ve bağlam içeren
+              promptlar genel olanlara kıyasla çok daha doğru sonuçlar üretir.</p>
+            <p data-i18n="learnPromptP2">Etkili prompt mühendisliği birkaç temel ilkeye dayanır: açık ve doğrudan olma,
+              bağlam sağlama, format belirtme, örnekler verme ve kısıtlamaları açıkça tanımlama. Bu ilkeler hem akademik
+              araştırmalarla hem de Anthropic'in en iyi uygulamalarıyla desteklenmektedir.</p>
+            <p data-i18n="learnPromptP3">Vibes 101, bu ilkeleri uygulayarak senin cevaplarını yapılandırılmış promptlara
+              dönüştürür. Ayrıntılar için aşağıdaki "Metodolojimiz" bölümüne bakabilirsin.</p>
           </div>
 
           <div class="learn-block">
             <h3 data-i18n="learnMethodTitle">Metodolojimiz</h3>
-            <p data-i18n="learnMethodP1">Vibes 101'in prompt üretim sistemi, Anthropic'in resmi prompt mühendisliği kılavuzunda önerilen XML etiketleme yapısını temel alır. Her prompt &lt;role&gt;, &lt;task&gt;, &lt;context&gt;, &lt;constraints&gt;, &lt;behavior&gt;, &lt;phases&gt; ve &lt;output_format&gt; etiketleriyle yapılandırılır. Bu sayede AI modeli talimatları, bağlamı ve kısıtlamaları belirsizlik olmadan ayrıştırabilir.</p>
-            <p data-i18n="learnMethodP2">Bu yaklaşım, Harvard HUIT'in belirlediği en iyi uygulamalarla da örtüşmektedir: rol atama ("Act as if" tekniği), çıktı formatı belirtme, dahil/hariç parametreleri tanımlama ve hedef kitle netliği sağlama. Promptlarımız bu ilkelerin tümünü otomatik olarak uygular.</p>
-            <p data-i18n="learnMethodP3">Aşamalı geliştirme modeli (phased development), her aşamanın bağımsız çalışan ve test edilebilir bir özellik dilimi (vertical slice) olmasını sağlar. AI'a davranış kuralları verilir: teknik terimleri açıkla, projeye özel sorular sor, her kod bloğunu açıkla. Negatif kısıtlamalar (istenmeyenler listesi) hallüsinasyonu ve kapsam kaymasını azaltır.</p>
+            <p data-i18n="learnMethodP1">Vibes 101'in prompt üretim sistemi, Anthropic'in resmi prompt mühendisliği
+              kılavuzunda önerilen XML etiketleme yapısını temel alır. Her prompt &lt;role&gt;, &lt;task&gt;,
+              &lt;context&gt;, &lt;constraints&gt;, &lt;behavior&gt;, &lt;phases&gt; ve &lt;output_format&gt;
+              etiketleriyle yapılandırılır. Bu sayede AI modeli talimatları, bağlamı ve kısıtlamaları belirsizlik
+              olmadan ayrıştırabilir.</p>
+            <p data-i18n="learnMethodP2">Bu yaklaşım, Harvard HUIT'in belirlediği en iyi uygulamalarla da örtüşmektedir:
+              rol atama ("Act as if" tekniği), çıktı formatı belirtme, dahil/hariç parametreleri tanımlama ve hedef
+              kitle netliği sağlama. Promptlarımız bu ilkelerin tümünü otomatik olarak uygular.</p>
+            <p data-i18n="learnMethodP3">Aşamalı geliştirme modeli (phased development), her aşamanın bağımsız çalışan
+              ve test edilebilir bir özellik dilimi (vertical slice) olmasını sağlar. AI'a davranış kuralları verilir:
+              teknik terimleri açıkla, projeye özel sorular sor, her kod bloğunu açıkla. Negatif kısıtlamalar
+              (istenmeyenler listesi) hallüsinasyonu ve kapsam kaymasını azaltır.</p>
             <div class="learn-sources">
               <p class="learn-sources-title" data-i18n="learnMethodSources">Kaynaklar</p>
               <ul>
-                <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#structure-prompts-with-xml-tags" target="_blank" rel="noopener noreferrer" data-i18n="learnMethodSource1">Anthropic: Claude Prompting Best Practices, XML Tags ile Yapılandırma</a></li>
-                <li><a href="https://www.huit.harvard.edu/news/ai-prompts" target="_blank" rel="noopener noreferrer" data-i18n="learnMethodSource2">Harvard HUIT: AI Prompts, En İyi Uygulamalar</a></li>
+                <li><a
+                    href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#structure-prompts-with-xml-tags"
+                    target="_blank" rel="noopener noreferrer" data-i18n="learnMethodSource1">Anthropic: Claude Prompting
+                    Best Practices, XML Tags ile Yapılandırma</a></li>
+                <li><a href="https://www.huit.harvard.edu/news/ai-prompts" target="_blank" rel="noopener noreferrer"
+                    data-i18n="learnMethodSource2">Harvard HUIT: AI Prompts, En İyi Uygulamalar</a></li>
               </ul>
             </div>
           </div>
 
           <div class="learn-block">
             <h3 data-i18n="learnToolsTitle">Yapay Zeka Kodlama Araçları</h3>
-            <p data-i18n="learnToolsP1">Yapay zeka destekli kodlama araçları hızla gelişen bir alan. Metin prompt kabul eden popüler araçlar arasında Claude, ChatGPT, Cursor ve Gemini bulunmaktadır. Vibes 101'in ürettiği promptlar, metin girdisi kabul eden herhangi bir yapay zeka aracıyla uyumludur.</p>
-            <p data-i18n="learnToolsP2">Bu araçların her biri farklı güçlü yönlere sahiptir. Projeniz için en uygun aracı seçerken güncel yeteneklerini, fiyatlandırmalarını ve kullanım koşullarını değerlendirmenizi öneririz. Hangi uygulamayı kullanmanız gerektiği konusunda karar veremediyseniz sitemizin "Forum" kısmından sorularınızı sorabilirsiniz.</p>
-            <p class="learn-disclaimer" data-i18n="learnToolsDisclaimer">Vibes 101, yukarıda adı geçen araçlarla sponsorluk veya ortaklık ilişkisi içinde değildir. Bunlar piyasada mevcut olan üçüncü taraf ürünlerdir.</p>
+            <p data-i18n="learnToolsP1">Yapay zeka destekli kodlama araçları hızla gelişen bir alan. Metin prompt kabul
+              eden popüler araçlar arasında Claude, ChatGPT, Cursor ve Gemini bulunmaktadır. Vibes 101'in ürettiği
+              promptlar, metin girdisi kabul eden herhangi bir yapay zeka aracıyla uyumludur.</p>
+            <p data-i18n="learnToolsP2">Bu araçların her biri farklı güçlü yönlere sahiptir. Projeniz için en uygun
+              aracı seçerken güncel yeteneklerini, fiyatlandırmalarını ve kullanım koşullarını değerlendirmenizi
+              öneririz. Hangi uygulamayı kullanmanız gerektiği konusunda karar veremediyseniz sitemizin "Forum"
+              kısmından sorularınızı sorabilirsiniz.</p>
+            <p class="learn-disclaimer" data-i18n="learnToolsDisclaimer">Vibes 101, yukarıda adı geçen araçlarla
+              sponsorluk veya ortaklık ilişkisi içinde değildir. Bunlar piyasada mevcut olan üçüncü taraf ürünlerdir.
+            </p>
           </div>
 
           <div class="learn-block">
             <h3 data-i18n="learnGitTitle">Git & GitHub Nedir?</h3>
-            <p data-i18n="learnGitP1">Git, GitHub'un resmi dokümantasyonunda tanımlandığı üzere, projenizdeki değişiklikleri izleyen bir versiyon kontrol sistemidir (DVCS). Her geliştirici projenin bir kopyasına sahiptir ve her değişiklik (kim tarafından, ne zaman, neden yapıldığı) kayıt altına alınır.</p>
-            <p data-i18n="learnGitP2">Temel kavramlar: Repository (depo, dosya), projenizin tüm dosyalarını ve revizyon geçmişini içerir. Commit'ler, kodunuzun belirli anlardaki anlık görüntüleridir. Branch'ler (dallar), birbirinden bağımsız geliştirme alanları oluşturmanızı sağlar.</p>
-            <p data-i18n="learnGitP3">GitHub, Git depolarını barındırır ve pull request, kod inceleme ve sorun takibi gibi işbirliği özellikleri ekler. Codespaces özelliği ile tarayıcıdan doğrudan kod yazabilirsiniz, bilgisayarınıza kurulum gerektirmez.</p>
+            <p data-i18n="learnGitP1">Git, GitHub'un resmi dokümantasyonunda tanımlandığı üzere, projenizdeki
+              değişiklikleri izleyen bir versiyon kontrol sistemidir (DVCS). Her geliştirici projenin bir kopyasına
+              sahiptir ve her değişiklik (kim tarafından, ne zaman, neden yapıldığı) kayıt altına alınır.</p>
+            <p data-i18n="learnGitP2">Temel kavramlar: Repository (depo, dosya), projenizin tüm dosyalarını ve revizyon
+              geçmişini içerir. Commit'ler, kodunuzun belirli anlardaki anlık görüntüleridir. Branch'ler (dallar),
+              birbirinden bağımsız geliştirme alanları oluşturmanızı sağlar.</p>
+            <p data-i18n="learnGitP3">GitHub, Git depolarını barındırır ve pull request, kod inceleme ve sorun takibi
+              gibi işbirliği özellikleri ekler. Codespaces özelliği ile tarayıcıdan doğrudan kod yazabilirsiniz,
+              bilgisayarınıza kurulum gerektirmez.</p>
             <div class="learn-sources">
               <p class="learn-sources-title" data-i18n="learnGitSource">Kaynak: GitHub Docs, About Git</p>
               <ul>
-                <li><a href="https://docs.github.com/en/get-started/using-git/about-git" target="_blank" rel="noopener noreferrer">GitHub Docs: About Git</a></li>
+                <li><a href="https://docs.github.com/en/get-started/using-git/about-git" target="_blank"
+                    rel="noopener noreferrer">GitHub Docs: About Git</a></li>
               </ul>
             </div>
           </div>
@@ -148,12 +184,18 @@
 
             <div class="stepper" id="tutorialStepper">
               <div class="stepper-tabs" id="stepperTabs">
-                <button class="stepper-tab active" data-step-idx="0"><span class="stepper-tab-num">1</span> <span data-i18n="learnStep1Title">GitHub hesabı oluştur</span></button>
-                <button class="stepper-tab" data-step-idx="1"><span class="stepper-tab-num">2</span> <span data-i18n="learnStep2Title">Yeni bir repo oluştur</span></button>
-                <button class="stepper-tab" data-step-idx="2"><span class="stepper-tab-num">3</span> <span data-i18n="learnStep3Title">Codespaces'te aç</span></button>
-                <button class="stepper-tab" data-step-idx="3"><span class="stepper-tab-num">4</span> <span data-i18n="learnStep4Title">Vibes 101 ile prompt oluştur</span></button>
-                <button class="stepper-tab" data-step-idx="4"><span class="stepper-tab-num">5</span> <span data-i18n="learnStep5Title">Promptu Codespaces'e yapıştır</span></button>
-                <button class="stepper-tab" data-step-idx="5"><span class="stepper-tab-num">6</span> <span data-i18n="learnStep6Title">Uygulamanı gör</span></button>
+                <button class="stepper-tab active" data-step-idx="0"><span class="stepper-tab-num">1</span> <span
+                    data-i18n="learnStep1Title">GitHub hesabı oluştur</span></button>
+                <button class="stepper-tab" data-step-idx="1"><span class="stepper-tab-num">2</span> <span
+                    data-i18n="learnStep2Title">Yeni bir repo oluştur</span></button>
+                <button class="stepper-tab" data-step-idx="2"><span class="stepper-tab-num">3</span> <span
+                    data-i18n="learnStep3Title">Codespaces'te aç</span></button>
+                <button class="stepper-tab" data-step-idx="3"><span class="stepper-tab-num">4</span> <span
+                    data-i18n="learnStep4Title">Vibes 101 ile prompt oluştur</span></button>
+                <button class="stepper-tab" data-step-idx="4"><span class="stepper-tab-num">5</span> <span
+                    data-i18n="learnStep5Title">Promptu Codespaces'e yapıştır</span></button>
+                <button class="stepper-tab" data-step-idx="5"><span class="stepper-tab-num">6</span> <span
+                    data-i18n="learnStep6Title">Uygulamanı gör</span></button>
               </div>
 
               <div class="stepper-panels">
@@ -167,16 +209,20 @@
                   <img src="steps/step2.2.png" alt="Repository settings" class="step-screenshot" loading="lazy" />
                 </div>
                 <div class="stepper-panel" data-panel="2">
-                  <p data-i18n="learnStep3Desc">Repoda "Code" → "Codespaces" → "Create" butonuna tıkla. Tarayıcıda bir kod editörü açılacak.</p>
+                  <p data-i18n="learnStep3Desc">Repoda "Code" → "Codespaces" → "Create" butonuna tıkla. Tarayıcıda bir
+                    kod editörü açılacak.</p>
                   <img src="steps/step3.png" alt="Open in Codespaces" class="step-screenshot" loading="lazy" />
                 </div>
                 <div class="stepper-panel" data-panel="3">
                   <p data-i18n="learnStep4Desc">Bu aracı kullanarak uygulamanın promptunu oluştur.</p>
-                  <img src="steps/step4.png" alt="Generate prompt with Vibes 101" class="step-screenshot" loading="lazy" />
+                  <img src="steps/step4.png" alt="Generate prompt with Vibes 101" class="step-screenshot"
+                    loading="lazy" />
                 </div>
                 <div class="stepper-panel" data-panel="4">
-                  <p data-i18n="learnStep5Desc">Codespaces'teki yapay zeka ajanına (Copilot Chat gibi) promptu yapıştır. Ajan kodu doğrudan Codespace dosyalarına yazacak.</p>
-                  <img src="steps/step5.png" alt="Paste prompt into Codespaces agent" class="step-screenshot" loading="lazy" />
+                  <p data-i18n="learnStep5Desc">Codespaces'teki yapay zeka ajanına (Copilot Chat gibi) promptu yapıştır.
+                    Ajan kodu doğrudan Codespace dosyalarına yazacak.</p>
+                  <img src="steps/step5.png" alt="Paste prompt into Codespaces agent" class="step-screenshot"
+                    loading="lazy" />
                 </div>
                 <div class="stepper-panel" data-panel="5">
                   <p data-i18n="learnStep6Desc">Uygulamanı önizle. Fikrini canlı olarak gör!</p>
@@ -189,7 +235,9 @@
           <div class="learn-block">
             <h3 data-i18n="learnNextTitle">Sırada Ne Var?</h3>
             <p data-i18n="learnNextP1">Tebrikler, ilk uygulamanı oluşturdun!</p>
-            <p data-i18n="learnNextP2">Sonraki adımlar: Yapay zekayla konuşmaya devam ederek uygulamana farklı özellikler ekleyebilirsin. Eğer soruların varsa sitemizin forum kısmından bize ve diğer kullanıcılara sorabilirsin.</p>
+            <p data-i18n="learnNextP2">Sonraki adımlar: Yapay zekayla konuşmaya devam ederek uygulamana farklı
+              özellikler ekleyebilirsin. Eğer soruların varsa sitemizin forum kısmından bize ve diğer kullanıcılara
+              sorabilirsin.</p>
           </div>
         </div>
 
@@ -198,7 +246,8 @@
             <div class="footer-top">
               <div class="footer-brand">
                 <img src="vibes101-logo.svg" alt="Vibes 101" class="footer-logo" />
-                <p class="footer-desc" data-i18n="footerDesc">Yeni başlayanlar için pratik vibe kodlamaya giriş serisinin
+                <p class="footer-desc" data-i18n="footerDesc">Yeni başlayanlar için pratik vibe kodlamaya giriş
+                  serisinin
                   bir parçasıdır.</p>
               </div>
               <div class="footer-links">
@@ -212,8 +261,16 @@
             </div>
             <div class="footer-bottom">
               <a href="https://www.youtube.com/@Vibes101TR" target="_blank" rel="noopener noreferrer"
-                class="footer-series" data-i18n="aboutSeries">YouTube Serisi: Yeni Başlayanlar İçin Pratik Vibe Kodlamaya
+                class="footer-series" data-i18n="aboutSeries">YouTube Serisi: Yeni Başlayanlar İçin Pratik Vibe
+                Kodlamaya
                 Giriş (Türkçe)</a>
+              <a href="https://www.producthunt.com/products/vibes101?embed=true&amp;utm_source=badge-featured&amp;utm_medium=badge&amp;utm_campaign=badge-vibes101"
+                target="_blank" rel="noopener noreferrer"
+                style="display: block; margin: 1rem auto 0; width: fit-content;">
+                <img alt="Vibes101 - Turn your app idea into an AI-ready prompt in seconds | Product Hunt" width="250"
+                  height="54"
+                  src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1087263&amp;theme=dark&amp;t=1772243638493">
+              </a>
             </div>
           </div>
         </footer>
@@ -437,7 +494,8 @@
               <span class="instruction-num">4</span>
               <div>
                 <span class="instruction-label" data-i18n="inst4Label">Dosyaları kaydet ve çalıştır</span>
-                <span class="instruction-desc" data-i18n="inst4Desc">Yapay zekanın ürettiği dosyaları bilgisayarına kaydet.
+                <span class="instruction-desc" data-i18n="inst4Desc">Yapay zekanın ürettiği dosyaları bilgisayarına
+                  kaydet.
                   "index.html" dosyasını tarayıcıda açarak uygulamanı gör.</span>
               </div>
             </div>
@@ -471,9 +529,12 @@
     <div class="modal-content">
       <button class="modal-close" data-close-modal="privacyModal">&times;</button>
       <h2 id="privacyModalTitle" data-i18n="privacyTitle">Gizlilik Politikası</h2>
-      <p data-i18n="privacyText1">Vibes 101 kişisel veri toplamaz ve saklamaz. Girdiğiniz bilgiler yalnızca prompt oluşturmak için kullanılır ve sunucularımızda kaydedilmez.</p>
-      <p data-i18n="privacyText2">Prompt oluşturmak için üçüncü parti bir AI servisi (Groq API) kullanılır. Gönderdiğiniz bilgiler yalnızca prompt üretimi için işlenir.</p>
-      <p data-i18n="privacyText3">Dil tercihiniz tarayıcınızda (localStorage) saklanır ve yalnızca deneyiminizi iyileştirmek için kullanılır.</p>
+      <p data-i18n="privacyText1">Vibes 101 kişisel veri toplamaz ve saklamaz. Girdiğiniz bilgiler yalnızca prompt
+        oluşturmak için kullanılır ve sunucularımızda kaydedilmez.</p>
+      <p data-i18n="privacyText2">Prompt oluşturmak için üçüncü parti bir AI servisi (Groq API) kullanılır.
+        Gönderdiğiniz bilgiler yalnızca prompt üretimi için işlenir.</p>
+      <p data-i18n="privacyText3">Dil tercihiniz tarayıcınızda (localStorage) saklanır ve yalnızca deneyiminizi
+        iyileştirmek için kullanılır.</p>
     </div>
   </div>
 
@@ -483,8 +544,10 @@
     <div class="modal-content">
       <button class="modal-close" data-close-modal="termsModal">&times;</button>
       <h2 id="termsModalTitle" data-i18n="termsTitle">Kullanım Koşulları</h2>
-      <p data-i18n="termsText1">Vibes 101, AI kodlama araçları için prompt oluşturan ücretsiz bir araçtır. Araç "olduğu gibi" sunulur, herhangi bir garanti verilmez.</p>
-      <p data-i18n="termsText2">Oluşturulan promptlar yalnızca başlangıç noktasıdır. Üretilen kodun doğruluğu veya güvenliği garanti edilmez. Kodu kullanmadan önce gözden geçirmeniz önerilir.</p>
+      <p data-i18n="termsText1">Vibes 101, AI kodlama araçları için prompt oluşturan ücretsiz bir araçtır. Araç "olduğu
+        gibi" sunulur, herhangi bir garanti verilmez.</p>
+      <p data-i18n="termsText2">Oluşturulan promptlar yalnızca başlangıç noktasıdır. Üretilen kodun doğruluğu veya
+        güvenliği garanti edilmez. Kodu kullanmadan önce gözden geçirmeniz önerilir.</p>
       <p data-i18n="termsText3">Bu aracı kullanarak bu koşulları kabul etmiş sayılırsınız.</p>
     </div>
   </div>
@@ -495,9 +558,12 @@
     <div class="modal-content">
       <button class="modal-close" data-close-modal="a11yModal">&times;</button>
       <h2 id="a11yModalTitle" data-i18n="a11yTitle">Erişilebilirlik Bildirimi</h2>
-      <p data-i18n="a11yText1">Vibes 101 olarak, aracımızın herkes tarafından erişilebilir olmasını sağlamaya kararlıyız.</p>
-      <p data-i18n="a11yText2">Uygulamamızda klavye ile gezinme, ekran okuyucu desteği, atlama bağlantıları, odak yönetimi ve ARIA etiketleri gibi erişilebilirlik özellikleri bulunmaktadır.</p>
-      <p data-i18n="a11yText3">Erişilebilirlik konusunda bir sorun yaşarsanız veya öneriniz varsa, lütfen bizimle iletişime geçin.</p>
+      <p data-i18n="a11yText1">Vibes 101 olarak, aracımızın herkes tarafından erişilebilir olmasını sağlamaya
+        kararlıyız.</p>
+      <p data-i18n="a11yText2">Uygulamamızda klavye ile gezinme, ekran okuyucu desteği, atlama bağlantıları, odak
+        yönetimi ve ARIA etiketleri gibi erişilebilirlik özellikleri bulunmaktadır.</p>
+      <p data-i18n="a11yText3">Erişilebilirlik konusunda bir sorun yaşarsanız veya öneriniz varsa, lütfen bizimle
+        iletişime geçin.</p>
     </div>
   </div>
 
