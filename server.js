@@ -7,6 +7,9 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Trust the first proxy (Railway) for accurate client IP tracking (rate limiting)
+app.set('trust proxy', 1);
+
 // Security headers
 app.use((req, res, next) => {
     res.setHeader('X-Content-Type-Options', 'nosniff');
@@ -16,7 +19,19 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(cors());
+// Configure CORS
+const allowedOrigins = ['http://localhost:3000', 'https://vibes101.org', 'https://www.vibes101.org'];
+app.use(cors({
+    origin: function (origin, callback) {
+        // allow requests with no origin (like mobile apps, curl, or same-origin)
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.indexOf(origin) === -1) {
+            var msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+            return callback(new Error(msg), false);
+        }
+        return callback(null, true);
+    }
+}));
 app.use(express.json());
 
 // Serve static frontend files

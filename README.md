@@ -12,6 +12,8 @@
 
 This is a "Vibe Coding" prompt generator web application. It takes user preferences and generates an optimized prompt that can be pasted into an AI coding tool (like Cursor, Claude, or ChatGPT) to automatically generate code for various basic apps.
 
+🚀 **Live App:** [vibes101.org](https://vibes101.org)
+
 ### File Structure
 
 ```text
@@ -69,6 +71,8 @@ This app is fully prepared for continuous deployment to Railway.
 ## 🇹🇷 Türkçe
 
 Bu proje, kod yazmayı hiç bilmeyip "Vibe Kodlama" mantığıyla uygulama geliştirmek isteyenler için ufak bir araç. Yaptığı şey çok basit: Sizden uygulama fikrinizi alıp Cursor, Claude veya ChatGPT gibi yapay zeka kodlama asistanlarına verebileceğiniz hazır, tertemiz bir komut (prompt) üretiyor. Merak etmeyin, fikirlerinizi kaydetmiyoruz :)
+
+🚀 **Canlı Uygulama:** [vibes101.org](https://vibes101.org)
 
 ### Yeni Başlayanlar İçin Notlar 💡
 
