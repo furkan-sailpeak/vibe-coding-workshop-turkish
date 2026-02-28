@@ -1,10 +1,20 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Security headers
+app.use((req, res, next) => {
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'DENY');
+    res.setHeader('X-XSS-Protection', '1; mode=block');
+    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+    next();
+});
 
 app.use(cors());
 app.use(express.json());
@@ -12,10 +22,32 @@ app.use(express.json());
 // Serve static frontend files
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Health check
+app.get('/health', (req, res) => {
+    res.json({ status: 'ok' });
+});
+
+// Rate limiter for /api/generate
+const generateLimiter = rateLimit({
+    windowMs: 60 * 1000, // 1 minute
+    max: 20,
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: { error: 'Too many requests. Please try again later.' },
+});
+
 // API Route for generating prompt using Groq API
-app.post('/api/generate', async (req, res) => {
+app.post('/api/generate', generateLimiter, async (req, res) => {
     try {
         const { systemMsg, userMsg } = req.body;
+
+        // Request validation
+        if (!systemMsg || typeof systemMsg !== 'string' || !systemMsg.trim()) {
+            return res.status(400).json({ error: 'systemMsg is required and must be a non-empty string.' });
+        }
+        if (!userMsg || typeof userMsg !== 'string' || !userMsg.trim()) {
+            return res.status(400).json({ error: 'userMsg is required and must be a non-empty string.' });
+        }
 
         if (!process.env.GROQ_API_KEY) {
             throw new Error("GROQ_API_KEY is missing from environment variables.");
@@ -28,7 +60,7 @@ app.post('/api/generate', async (req, res) => {
                 'Authorization': `Bearer ${process.env.GROQ_API_KEY}`
             },
             body: JSON.stringify({
-                model: "llama-3.3-70b-versatile", // Using Llama 3 8B model as a solid default
+                model: "llama-3.3-70b-versatile",
                 messages: [
                     { role: "system", content: systemMsg },
                     { role: "user", content: userMsg }
